@@ -1,0 +1,13 @@
+Flask
+tensorflow
+pillow
+numpy
+scikit-learn
+
+# 🔥 Added (important)
+matplotlib      # GradCAM heatmaps
+opencv-python   # image processing (optional but useful)
+reportlab       # PDF generation
+
+# ⚡ optional but recommended
+pandas          # log analysis (future dashboard)
