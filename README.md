@@ -266,7 +266,7 @@ CancerVision/
 ### Clone the repository
 
 ```bash
-git clone https://github.com/Suvansh-DevHub/CancerVision-AI-Multi-Cancer-Detection.git
+git clone https://github.com/sujal36/CancerVision-AI-Multi-Cancer-Detection.git
 ```
 
 ### Move into the project directory
