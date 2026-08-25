@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Contact / Support — Cancer Vision</title>
+  <meta name="description"
+    content="Cancer Vision — Contact & Support for general inquiries, partnerships, or technical issues." />
+ <link rel="stylesheet" href="{{ url_for('static', filename='css/contact.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/responsive-contact.css') }}">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+
+
+<body>
+  <div class="floating-icons"></div>
+  <main>
+    <header>
+      <h1>Contact / Support</h1>
+      <p>Reach out to the Cancer Vision team for support, collaboration, or inquiries.<br>
+        Please share your details accurately so we can respond to your request promptly.</p>
+    </header>
+
+  <form id="contactForm" method="POST" action="/contact" enctype="multipart/form-data">
+      <div class="row">
+        <div class="field">
+          <label for="firstName">First Name <span class="req-star" aria-hidden="true">*</span></label>
+          <input id="firstName" name="firstName" placeholder="e.g., John" required>
+          <div class="hint" id="firstNameHint"></div>
+        </div>
+
+        <div class="field">
+          <label for="lastName">Last Name <span class="req-star" aria-hidden="true">*</span></label>
+          <input id="lastName" name="lastName" placeholder="e.g., Doe" required>
+          <div class="hint" id="lastNameHint"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label for="prefContact">Preferred Contact Method <span class="req-star" aria-hidden="true">*</span></label>
+          <select id="prefContact" name="prefContact" required>
+            <option value="" disabled selected hidden>-- Select method --</option>
+            <option value="email">Email</option>
+            <option value="phone">Contact Number</option>
+          </select>
+          <div class="hint" id="prefContactHint"></div>
+        </div>
+
+        <div class="field">
+          <label for="email">Email <span class="req-star" aria-hidden="true">*</span></label>
+          <input id="email" name="email" type="email" placeholder="you@domain.com" required>
+          <div class="hint" id="emailHint"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label for="contactNumber">Contact Number <span class="req-star" aria-hidden="true">*</span></label>
+          <input id="contactNumber" name="contactNumber" type="tel" placeholder="e.g., +91 98765 43210" required>
+          <div class="hint" id="contactNumberHint"></div>
+        </div>
+
+        <div class="field">
+          <label for="type">Type of Request <span class="req-star" aria-hidden="true">*</span></label>
+          <select id="type" name="type" required>
+            <option value="" disabled selected hidden>-- Select Type --</option>
+            <option>General Question</option>
+            <option>Bug Report</option>
+            <option>Partnership / Research</option>
+            <option>Press / Media</option>
+            <option>Career / Internship</option>
+          </select>
+          <div class="hint" id="typeHint"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label for="subject">Subject / Topic <span class="req-star" aria-hidden="true">*</span></label>
+          <input id="subject" name="subject" placeholder="e.g., Website not working" required>
+          <div class="hint" id="subjectHint"></div>
+        </div>
+
+        <div class="field">
+          <label for="address">Address (optional)</label>
+          <input id="address" name="address" placeholder="e.g., City, State or Country">
+          <div class="hint" id="addressHint"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label for="org">Organization / Institution (optional)</label>
+          <input id="org" name="org" placeholder="Hospital / Institute / Company">
+          <div class="hint" id="orgHint"></div>
+        </div>
+
+        <div class="field">
+          <label for="role">Designation / Role (optional)</label>
+          <input id="role" name="role" placeholder="e.g., Researcher, Clinician">
+          <div class="hint" id="roleHint"></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label for="link">Website / LinkedIn (optional)</label>
+          <input id="link" name="link" type="url" placeholder="https://linkedin.com/in/example">
+        </div>
+
+        <div class="field">
+          <label for="attachment">Attachments (optional)</label>
+          <input id="attachment" name="attachment" type="file" accept=".jpg,.png,.pdf">
+          <div class="muted">Attach screenshot or PDF for context (max 5 MB)</div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="field" style="flex:1 1 100%;">
+          <label for="message">Message <span class="req-star" aria-hidden="true">*</span></label>
+          <textarea id="message" name="message" placeholder="Write your message..." required></textarea>
+          <div class="hint" id="msgHint"></div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="field" style="flex:1;">
+          <label class="consent-label">
+            <input type="checkbox" id="consent" required>
+            <span>I consent to data processing per
+              <a href="{{ url_for('privacymain') }}" target="_blank">Privacy Policy</a>.
+            </span>
+          </label>
+          <div class="hint" id="consentHint"></div>
+        </div>
+      </div>
+
+
+      <input type="text" name="extra_field" style="display:none" tabindex="-1" autocomplete="off">
+
+      <div class="btn-row">
+        <button type="submit">Send Message</button>
+        <button type="reset" class="ghost">Reset</button>
+      </div>
+    </form>
+
+    <section class="support-info" aria-labelledby="supportHeading">
+      <h3 id="supportHeading"><i class="fa-solid fa-headset" aria-hidden="true"></i> Support</h3>
+      <div class="support-stars" aria-hidden="true"></div>
+      <p class="support-row">
+        <strong>Email :</strong>
+        <span class="value"><a href="mailto:cancervision.helpdesk@gmail.com">cancervision.helpdesk@gmail.com</a></span>
+      </p>
+
+      <p class="support-row office-row">
+        <strong>Office :</strong>
+        <span class="value office-line">Cancer Vision Lab, Meerut Institute of Engineering &amp; Technology</span>
+      </p>
+
+      <hr>
+
+      <div class="connect" aria-hidden="false">
+        <a href="https://github.com/Suvansh-DevHub" target="_blank" title="GitHub">
+          <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/github.svg" alt="GitHub"
+            class="connect-icon">
+          GitHub
+        </a>
+        <span>•</span>
+        <a href="https://www.linkedin.com/in/suvansh36/" target="_blank" title="LinkedIn">
+          <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/linkedin.svg" alt="LinkedIn"
+            class="connect-icon">
+          LinkedIn
+        </a>
+        <span>•</span>
+        <a href="https://x.com/Suvansh31" target="_blank" title="Twitter">
+          <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/twitter.svg" alt="Twitter"
+            class="connect-icon">
+          Twitter
+        </a>
+      </div>
+
+      <hr>
+
+
+      <a class="privacy" href="{{ url_for('contactpageprivacy') }}" target="_blank">Privacy &amp; Data Policy</a>
+
+  
+    </section>
+
+
+    <footer style="margin-top:40px;text-align:center;font-size:13px;color:var(--muted)">
+      © Cancer Vision — For research & educational use. Not a medical device.
+    </footer>
+  </main>
+  <div id="appModal" class="app-modal" hidden>
+  <div class="app-modal__overlay" data-close-modal></div>
+  <div class="app-modal__panel" role="document">
+    <button class="app-modal__close" aria-label="Close" data-close-modal>&times;</button>
+    <h2 id="appModalTitle" class="app-modal__title">Message sent!</h2>
+    <p id="appModalDesc" class="app-modal__desc">Your message is ready to send. Hook backend or email API here.</p>
+    <button class="app-modal__ok" data-close-modal>OK</button>
+  </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/contact.js') }}" defer></script>
+</body>
+
+</html>

@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cancer Vision</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/mobileresponsive.css') }}">
+  <!-- Font Awesome CDN -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script src="{{ url_for('static', filename='js/script.js') }}" defer></script>
+</head>
+
+<style>
+  /* 🔥 POPUP OVERLAY (FULL SCREEN LOCK) */
+  .loading-popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(6px);
+
+    display: none;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 99999;
+  }
+
+  /* 🔥 POPUP BOX */
+  .loader-box {
+    background: linear-gradient(145deg, #ffffff, #f3f6fb);
+    padding: 50px 60px;
+    border-radius: 20px;
+    text-align: center;
+
+    box-shadow:
+      0 25px 80px rgba(0, 0, 0, 0.35),
+      inset 0 1px 0 rgba(255, 255, 255, 0.6);
+
+    max-width: 420px;
+    width: 90%;
+
+    animation: popupFade 0.3s ease;
+    backdrop-filter: blur(12px);
+  }
+
+  /* 🔥 PROGRESS RING */
+  .progress-ring {
+    transform: rotate(-90deg);
+    margin: 0 auto 20px auto;
+    /* 🔥 CENTER FIX */
+    display: block;
+    /* 🔥 IMPORTANT */
+  }
+
+  .progress-ring circle {
+    fill: none;
+    stroke-width: 7;
+  }
+
+  .progress-ring .bg {
+    stroke: #e6e6e6;
+  }
+
+  .progress-ring .progress {
+    stroke: #007bff;
+    stroke-dasharray: 220;
+    stroke-dashoffset: 220;
+    transition: stroke-dashoffset 0.4s ease;
+  }
+
+  /* 🔥 TEXT */
+  #loadingText {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1a1a1a;
+    letter-spacing: 0.3px;
+    margin-top: 10px;
+  }
+
+  /* 🔥 SUBTEXT */
+  .loader-box small {
+    color: #666;
+    display: block;
+    margin-top: 6px;
+    font-size: 13px;
+  }
+
+
+  #progressPercent {
+    display: block;
+    font-size: 16px;
+    margin-top: 6px;
+    color: #007bff;
+    font-weight: 600;
+  }
+
+  /* 🔥 ANIMATION */
+  @keyframes popupFade {
+    from {
+      opacity: 0;
+      transform: scale(0.85);
+    }
+
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+</style>
+
+<body>
+  <!-- Navigation -->
+  <nav>
+    <div class="logo">
+      <img src="{{ url_for('static', filename='images/CancerVisionLogo.jpg') }}" alt="Cancer Vision" class="logo-img">
+      <span>Cancer Vision</span>
+    </div>
+
+    <div class="nav-links">
+      <a href="#home"
+        onclick="window.location.href = window.location.pathname + '#home'; window.location.reload(); return false;"
+        class="nav-link">Home</a>
+      <a href="#detection" class="nav-link">Detection</a>
+      <a href="{{ url_for('insights') }}" class="nav-link">Insights</a>
+      <a href="#about" class="nav-link">About</a>
+      <a href="{{ url_for('contact') }}" target="_blank" class="nav-link">Contact Us</a>
+      <a href="{{ url_for('login') }}" class="sign-in">Login</a>
+    </div>
+  </nav>
+
+
+
+  <!-- Hero Section -->
+  <section id="home" class="home-section">
+    <div class="home-section-content">
+      <div class="home-section-image">
+        <img src="{{ url_for('static', filename='images/CancerVisionHeroImage.png') }}" alt="AI Cancer Detection"
+          class="home-section-photo">
+      </div>
+
+      <!-- Text Content -->
+      <div class="home-section-text">
+        <h1>AI-Powered Cancer Detection</h1>
+        <p>Early detection saves lives. Create your account today to analyze scans instantly and take the first
+          step toward faster, AI-assisted diagnosis.</p>
+        <a href="{{ url_for('signup') }}" target="_blank" class="cta-button">
+          Create Account
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Detection Section (fixed: image on RIGHT, patient details on LEFT) -->
+  <section id="detection" class="detection-section">
+    <div class="detection-inner" style="display:flex;gap:40px;align-items:flex-start;max-width:1200px;margin:0 auto;">
+
+      <!-- LEFT: Patient Details -->
+      <div class="detection-left" style="flex:0 1 50%;">
+        <h2>Experience AI-Driven Diagnosis</h2>
+        <p class="detection-desc">
+          Experience our advanced AI-powered cancer diagnosis system designed to assist doctors and researchers
+          with fast, reliable, and secure image-based analysis. Upload your medical scans to view confidence scores
+          and intelligent visual insights.
+          Our deep learning models detect subtle patterns that often go unnoticed, enabling early diagnosis and
+          improving treatment outcomes.
+        </p>
+        <a href="#detection" class="detection-button" id="startDetectionBtn">Start Detection</a>
+        <a href="{{ url_for('termswelcomepage') }}" target="_blank" rel="noopener noreferrer"
+          class="cta-button learn-more-btn">
+          Learn More
+        </a>
+        <p class="detection-note">Patient data required for better accuracy and recommendations.</p>
+
+        <!-- === Patient Details Block (old CSS compatible) === -->
+        <div class="detection-section1" style="margin-top:20px;">
+          <div class="detection-inner1">
+            <h2 class="detection-title">Patient Details</h2>
+            <p class="detection-sub" style="margin-bottom: 70px;">Provide your details to personalize AI-based cancer
+              detection.</p>
+
+            <!-- NOTE: form uses IDs that script.js expects (age2, gender2, etc.) -->
+            <form class="detection-form" enctype="multipart/form-data">
+
+              <!-- 🔥 ADD THIS LINE EXACTLY HERE -->
+              <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+              <!-- First / Last Name -->
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="firstName">First Name *</label>
+                  <input type="text" id="firstName" name="firstName" placeholder="e.g., John" required />
+                </div>
+                <div class="form-group">
+                  <label for="lastName">Last Name *</label>
+                  <input type="text" id="lastName" name="lastName" placeholder="e.g., Doe" required />
+                </div>
+              </div>
+
+              <!-- Patient Details (IDs changed to match script.js) -->
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="age2">Age *</label>
+                  <input type="number" id="age2" name="age" placeholder="e.g., 45" min="0" max="120" required />
+                  <small id="age2err" class="error" style="display:none">Enter valid age (0–120)</small>
+                </div>
+                <div class="form-group">
+                  <label for="gender2">Gender *</label>
+                  <select id="gender2" name="gender" required>
+                    <option value="">-- Select gender --</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="bp2">Blood Pressure (optional)</label>
+                  <input type="text" id="bp2" name="blood_pressure" placeholder="e.g., 120/80 mmHg" />
+                </div>
+                <div class="form-group">
+                  <label for="sugar2">Blood Sugar (optional)</label>
+                 <input type="text" id="sugar2" name="blood_sugar" placeholder="e.g., 95 mg/dL" />
+                </div>
+                <div class="form-group">
+                  <label for="hb2">Haemoglobin (optional)</label>
+                  <input type="text" id="hb2" name="haemoglobin" placeholder="e.g., 13.5 g/dL" />
+                </div>
+              </div>
+              <p class="form-hint">
+                💡 * Fields are mandatory to fill. Optional fields are not required, but providing them helps us offer
+                better and more personalized recommendations.
+              </p>
+
+              <!-- Detection Options -->
+              <div class="form-block">
+                <h3>Detection Options</h3>
+
+                <div class="detection-row">
+                  <!-- segmented control (type="button" is important) -->
+                  <div class="segmented-wrap" role="tablist" aria-label="Detection mode">
+                    <button id="segAuto" type="button" class="seg-btn active" aria-selected="true" role="tab"
+                      tabindex="0">Auto-detect</button>
+                    <button id="segManual" type="button" class="seg-btn" aria-selected="false" role="tab"
+                      tabindex="-1">Select cancer type</button>
+                  </div>
+
+                  <!-- Small fun-vibe image on right of Detection Options -->
+                  <div class="detect-fun-img absolute-right">
+                    <img src="{{ url_for('static', filename='images/small-detect-right.png') }}"
+                      alt="AI Detection Visual">
+
+                  </div>
+                  <!-- type dropdown: JS expects id="ctypeWrap" / id="ctype2" -->
+                  <div id="ctypeWrap" class="ctype-column" aria-hidden="true">
+                    <label for="ctype2" class="visually-hidden">Choose cancer type</label>
+                    <select id="ctype2" name="ctype" class="ctype-select" data-multiselect="true" data-maxselect="3">
+                      <option value="">-- Choose type --</option>
+                      <option value="lung">Lung</option>
+                      <option value="brain">Brain</option>
+                      <option value="skin">Skin</option>
+                      <option value="breast">Breast</option>
+                    </select>
+
+                    <!-- Container where selected options will be shown OUTSIDE the dropdown -->
+                    <div id="ctypeSelected" class="ctype-selected" aria-live="polite"></div>
+
+                    <!-- Hidden input to hold selected values (comma-separated) for form submission / existing scripts -->
+                    <input type="hidden" id="ctype2_values" name="ctype_values" value="" />
+                  </div>
+                </div>
+
+                <p class="detect-note1">* Auto-detect runs a multi-model ensemble and may take longer to process.
+                  Selecting a specific type focuses the model for quicker, targeted analysis.
+                </p>
+
+
+              </div>
+
+              <!-- Upload -->
+              <!-- REPLACED: old upload-block replaced by self-contained section -->
+              <section id="upload-section" class="form-block upload-block" aria-live="polite">
+                <h3>Upload Image</h3>
+
+                <!-- visible dropzone (script expects id="dz") -->
+                <div id="dz" class="upload-box" tabindex="0" role="button" aria-label="Upload image dropzone">
+                  <p>Drop your medical image here</p>
+                  <small>Supported: JPG, PNG, TIFF, DCM (Max 10 MB)</small>
+                </div>
+
+                <!-- hidden file input (script expects id="fileInp") -->
+                <input id="fileInp" name="files" type="file" accept=".jpg,.jpeg,.png,.tiff,.tif,.dcm"
+                  style="display:none" />
+
+                <!-- preview + metadata area (script expects id="fileArea") -->
+                <div id="fileArea" style="display:none; margin-top:24px;">
+
+                  <!-- framed thumbnail -->
+                  <div class="preview-frame" style="display:flex;justify-content:center;margin-bottom:14px;">
+                    <img id="thumb2" src="" alt="preview"
+                      style="width:70%;max-width:520px;height:auto;border-radius:10px;padding:6px;background:#fff;border:2px solid #e1e8ee;box-shadow:0 8px 22px rgba(4,12,24,0.06);display:none;object-fit:contain;" />
+                  </div>
+
+                  <!-- metadata card -->
+                  <div class="file-meta"
+                    style="background:#fff;border-radius:10px;padding:16px 16px 12px;color:#0B2033;box-shadow:0 8px 22px rgba(4,12,24,0.04);max-width:760px;margin:0 auto;border:1px solid #e6eef4;">
+                    <h3 class="meta-title" style="margin:0 0 12px;font-size:18px;font-weight:700;">File details</h3>
+
+                    <div class="meta-row"
+                      style="display:grid;grid-template-columns:200px 1fr;gap:6px 14px;align-items:center;padding:10px 0;border-bottom:1px solid rgba(15,20,30,0.04);">
+                      <label style="font-weight:700;font-size:14px;color:#26424f;">File Name :</label>
+                      <div id="metaFilename" class="meta-value" aria-readonly="true">—</div>
+                    </div>
+
+                    <div class="meta-row"
+                      style="display:grid;grid-template-columns:200px 1fr;gap:6px 14px;align-items:center;padding:10px 0;border-bottom:1px solid rgba(15,20,30,0.04);">
+                      <label style="font-weight:700;font-size:14px;color:#26424f;">File Format :</label>
+                      <div id="metaMime" class="meta-value">—</div>
+                    </div>
+
+                    <div class="meta-row"
+                      style="display:grid;grid-template-columns:200px 1fr;gap:6px 14px;align-items:center;padding:10px 0;border-bottom:1px solid rgba(15,20,30,0.04);">
+                      <label style="font-weight:700;font-size:14px;color:#26424f;">File Size :</label>
+                      <div id="metaSize" class="meta-value">—</div>
+                    </div>
+
+                    <div class="meta-row"
+                      style="display:grid;grid-template-columns:200px 1fr;gap:6px 14px;align-items:center;padding:10px 0;border-bottom:1px solid rgba(15,20,30,0.04);">
+
+                      <label for="sourceSelect" style="font-weight:700;font-size:14px;color:#26424f;">
+                        Source :
+                      </label>
+
+                      <select id="sourceSelect" name="source" required data-replace="centered"
+                        style="padding:10px 12px;border-radius:8px;border:1px solid #d8e2e8;min-height:42px;font-weight:600;">
+
+                        <option value="">— Select —</option>
+                        <option value="training">Training set</option>
+                        <option value="validation">Validation set</option>
+                        <option value="test">Test set</option>
+                        <option value="unknown">Unknown</option>
+
+                      </select>
+                    </div>
+
+                    <div class="meta-row"
+                      style="display:grid;grid-template-columns:200px 1fr;gap:6px 14px;align-items:center;padding:10px 0;border-bottom:1px solid rgba(15,20,30,0.04);">
+                      <label for="organSelect" style="font-weight:700;font-size:14px;color:#26424f;">Organ Type
+                        :</label>
+                      <select id="organSelect" required data-replace="centered"
+                        style="padding:10px 12px;border-radius:8px;border:1px solid #d8e2e8;min-height:42px;font-weight:600;">
+                        <option value="">— Select —</option>
+                        <option value="lung">Lung</option>
+                        <option value="breast">Breast</option>
+                        <option value="skin">Skin</option>
+                        <option value="brain">Brain</option>
+                        <option value="unknown">Unknown</option>
+                      </select>
+                    </div>
+
+                    <div class="meta-row"
+                      style="display:grid;grid-template-columns:200px 1fr;gap:6px 14px;align-items:center;padding:10px 0;border-bottom:1px solid rgba(15,20,30,0.04);">
+                      <label for="subtypeSelect" style="font-weight:700;font-size:14px;color:#26424f;">Subtype :</label>
+                      <div style="display:flex;flex-direction:column;">
+                        <select id="subtypeSelect" data-replace="centered" disabled required
+                          style="padding:10px 12px;border-radius:8px;border:1px solid #d8e2e8;min-height:42px;font-weight:600;">
+                          <option value="">— Select—</option>
+                        </select>
+                      </div>
+                    </div>
+
+                    <div class="meta-row"
+                      style="display:grid;grid-template-columns:200px 1fr;gap:6px 14px;align-items:center;padding:10px 0;">
+
+                      <label for="groundTruthSelect" style="font-weight:700;font-size:14px;color:#26424f;">
+                        Ground Truth Label :
+                      </label>
+
+                      <select id="groundTruthSelect" name="ground_truth" required data-replace="centered"
+                        style="padding:10px 12px;border-radius:8px;border:1px solid #d8e2e8;min-height:42px;font-weight:600;">
+
+                        <option value="">— Select —</option>
+                        <option value="yes">Yes</option>
+                        <option value="no">No</option>
+                        <option value="unknown">Unknown</option>
+
+                      </select>
+                    </div>
+
+                    <!-- compatibility filename/info placeholders used by existing JS (kept hidden) -->
+                    <div class="meta-actions" style="margin-top:10px; display:none;">
+                      <div id="fname" style="display:inline-block"></div>
+                      <div id="finfo" style="display:inline-block"></div>
+                    </div>
+
+                  </div>
+
+                </div>
+
+                <div class="button-row file-area-control-wrap"
+                  style="max-width:760px;margin:14px auto 0; display:flex; gap:12px; align-items:center; justify-content:center;">
+                  <button id="clear2" type="button"
+                    style="background:linear-gradient(90deg,#007bff,#00c6ff);color:#fff;border:none;box-shadow:0 6px 18px rgba(0,114,255,0.25);border-radius:999px;padding:12px 28px;font-weight:600;font-size:13.333px;line-height:1;cursor:pointer;">
+                    Clear
+                  </button>
+
+                  <button id="analyze2" type="submit" class="analyze" disabled
+                    style="background:linear-gradient(90deg,#007bff,#00c6ff);color:#fff;border:none;border-radius:999px;padding:12px 28px;font-weight:600;cursor:pointer;">
+                    Analyze
+                  </button>
+                </div>
+
+                <!-- results container referenced by script -->
+                <div id="res2" style="margin-top:16px;"></div>
+
+              </section>
+              <!-- END replaced upload section -->
+              <!-- Insights section (initially hidden) -->
+              <img src="{{ url_for('static', filename='images/Image.png') }}" id="cv-left-deco-image"
+                class="fixed-left-preview-image">
+
+            </form>
+
+
+
+          </div>
+        </div>
+        <!-- === END patient block === -->
+
+      </div> <!-- end detection-left -->
+
+      <!-- RIGHT: Demo image card (image stays on RIGHT) -->
+      <div class="detection-right" style="flex:0 1 48%; display:flex;justify-content:center;align-items:flex-start;">
+        <div class="detection-image-card" style="max-width:560px;width:100%;display:flex;justify-content:center;">
+          <img src="{{ url_for('static', filename='images/CancerVisionDetectImage1.png') }}" alt="AI Detection Preview"
+            class="detection-image" style="width:100%;height:auto;border-radius:12px;object-fit:cover;">
+
+
+
+        </div>
+      </div>
+
+    </div> <!-- end detection-inner -->
+  </section>
+
+  <!-- About Section (Updated with clean results cards) -->
+  <section id="about" class="about">
+    <div class="container">
+      <div class="about-grid">
+
+        <!-- LEFT CONTENT -->
+        <div class="about-content">
+          <h2 class="section-title">About CancerVision</h2>
+
+          <p class="about-text"
+            style="margin-bottom:96px !important; font-size: 18px !important; font-family: 'Times New Roman' !important; letter-spacing: 0.25px!important;">
+            CancerVision is an AI-powered multi-modal cancer detection platform designed to help users and healthcare
+            professionals identify cancers at an early stage with consistently high accuracy. Our advanced deep-learning
+            system analyzes medical images using powerful CNN architectures, evaluates subtle visual patterns often
+            missed by the human eyes, and delivers real-time predictions along with precise AI-generated recommendations
+            to support clinical decisions.
+
+
+
+          </p>
+
+          <h3 class="about-mission "
+            style="margin-top:8px; margin-bottom:58px !important; color:#0b2033; font-size: 25px; font-family: 'Times New Roman' !important;">
+            Our Mission</h3>
+          <p class="about-text"
+            style="margin-bottom:154px !important; font-size: 18px !important; font-family: 'Times New Roman' !important; letter-spacing: 0.35px!important;">
+            To make early cancer detection more accessible, accurate, and fast by combining advanced medical imaging,
+            modern AI technologies, refined clinical knowledge, and improved diagnostic processes that supports reliable
+            assessment and better decision-making for enhanced accuracy in healthcare settings.
+          </p>
+
+          <!-- KEY FEATURES (ONLY TOP 4) -->
+          <h3
+            style="margin-top: -46px !important; margin-bottom:10px; color:#0b2033; font-size: 30px !important; margin-left: 470px !important; letter-spacing: 0.2px !important; margin-bottom: 115px !important; font-family: 'Times New Roman';">
+            Key Features</h3>
+
+          <div class="features-grid">
+            <!-- Feature 1 -->
+            <div class="feature-card">
+              <div class="feature-icon"
+                style="font-size:26px; display:flex; align-items:center; justify-content:center;">
+                🧬
+              </div>
+              <h4
+                style="font-size: 18px !important; font-family: 'Times New Roman' !important; letter-spacing: 0.3px!important;">
+                Multi-Cancer Detection
+              </h4>
+              <p
+                style="font-size: 16px !important; font-family: 'Times New Roman' !important; letter-spacing: 0.25px!important;">
+                Supports Lung, Breast, Skin and Brain cancer (including subtypes).
+              </p>
+            </div>
+
+            <!-- Feature 2 -->
+            <div class="feature-card">
+              <div class="feature-icon"
+                style="font-size:26px; display:flex; align-items:center; justify-content:center;">
+                🧪
+              </div>
+              <h4
+                style="font-size: 18px !important; font-family: 'Times New Roman' !important; letter-spacing: 0.3px!important;">
+                Subtype-Level Classification
+              </h4>
+              <p
+                style="font-size: 16px !important; font-family: 'Times New Roman' !important; letter-spacing: 0.25px!important;">
+                Identifies cancer subtypes for more precise insights.
+              </p>
+            </div>
+
+            <!-- Feature 3 -->
+            <div class="feature-card">
+              <div class="feature-icon"
+                style="font-size:26px; display:flex; align-items:center; justify-content:center;">
+                ⚡
+              </div>
+              <h4
+                style="font-size: 18px !important; font-family: 'Times New Roman' !important; letter-spacing: 0.3px!important;">
+                Auto Detection
+              </h4>
+              <p
+                style="font-size: 16px !important; font-family: 'Times New Roman' !important; letter-spacing: 0.25px!important;">
+                Automatically recognizes cancer category or allows manual selection.
+              </p>
+            </div>
+
+            <!-- Feature 4 -->
+            <div class="feature-card">
+              <div class="feature-icon"
+                style="font-size:26px; display:flex; align-items:center; justify-content:center;">
+                🔬
+              </div>
+              <h4
+                style="font-size: 18px !important; font-family: 'Times New Roman' !important; letter-spacing: 0.3px!important;">
+                High-Accuracy CNN Model
+              </h4>
+              <p
+                style="font-size: 16px !important; font-family: 'Times New Roman' !important; letter-spacing: 0.25px!important;">
+                Optimized deep-learning architecture for medical scans.
+              </p>
+            </div>
+
+
+          </div> <!-- end features-grid -->
+        </div> <!-- end about-content -->
+      </div> <!-- end about-grid -->
+
+      <!-- ⭐ NEW BEAUTIFUL RESULT CARDS (THIRD-IMAGE EXACT DESIGN) -->
+      <div class="about-stats-wrap">
+
+        <!-- ⭐ NEW HEADING -->
+        <h2 class="stats-title"
+          style="margin-top:158px !important; margin-bottom:108px !important; color:#0b2033; font-size: 30px !important; font-family: 'Times New Roman' !important; margin-left: -30px;">
+          Why Trust CancerVision?</h2>
+
+        <!-- Intro line above cards (as requested) -->
+        <div class="about-stats-intro"
+          style="margin-top:100px !important; margin-bottom:108px !important; color:#0b2033; font-size: 20px !important; font-family: 'Times New Roman' !important; margin-left: 100px;">
+          Our AI system has been extensively tested and validated in clinical environments
+        </div>
+
+        <div class="about-stats-grid">
+
+          <!-- Card 1 -->
+          <div class="about-stat-card">
+            <h4 class="stat-title"
+              style="font-size: 20px!important; font-family: 'Times New Roman'!important; margin-bottom: 50px!important;">
+              Diagnostic Accuracy</h4>
+
+            <div class="stat-circle-wrap">
+              <svg class="progress-ring" width="120" height="120" viewBox="0 0 120 120" data-percent-text="95"
+                data-fill="88" data-stroke="10" data-color="#2563eb">
+                <circle class="progress-ring-bg" cx="60" cy="60" r="54" />
+                <circle class="progress-ring-circle" cx="60" cy="60" r="54" />
+              </svg>
+
+              <div class="stat-circle-text " style="font-family: 'Times New Roman' !important;">95%</div>
+            </div>
+
+            <p class="stat-desc"
+              style="font-size: 16px!important; font-family: 'Times New Roman'!important; margin-top: 50px!important;">
+              Validated across multiple cancer types with consistent high accuracy rates
+            </p>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="about-stat-card">
+            <h4 class="stat-title "
+              style="font-size: 20px!important; font-family: 'Times New Roman'!important; margin-bottom: 50px!important;">
+              Early Detection Rate</h4>
+
+            <div class="stat-metric">
+              <span class="metric-value"
+                style="font-size: 52px!important; font-family: 'Times New Roman'!important; margin-top: 10px!important; margin-bottom: 25px!important;">94.7%</span>
+              <span class="metric-unit"
+                style="font-family: 'Times New Roman' !important; font-size: 18px!important;">Success Rate</span>
+            </div>
+
+            <p class="stat-desc"
+              style="font-size: 16px!important; font-family: 'Times New Roman'!important; margin-top: 40px!important;">
+              Capable of detecting cancer in early stages when treatment is most effective
+            </p>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="about-stat-card">
+            <h4 class="stat-title"
+              style="font-size: 20px!important; font-family: 'Times New Roman'!important; margin-bottom: 50px!important;">
+              Processing Speed</h4>
+
+            <div class="stat-metric">
+              <span class="metric-value"
+                style="font-size: 52px!important; font-family: 'Times New Roman'!important; margin-top: 10px!important; margin-bottom: 25px!important;">10-20</span>
+              <span class="metric-unit"
+                style="font-family: 'Times New Roman' !important; font-size: 18px!important;">Seconds</span>
+            </div>
+
+            <p class="stat-desc"
+              style="font-size: 16px!important; font-family: 'Times New Roman'!important; margin-top: 40px!important;">
+              Ultra-fast analysis enabling real-time diagnostic support
+            </p>
+          </div>
+
+        </div>
+      </div>
+
+  </section>
+
+
+  <!-- Footer (CancerVision style, keeps your footer class names) -->
+  <footer class="footer cv-footer">
+    <div class="container cv-container">
+      <div class="footer-row cv-footer-row">
+        <!-- Logo & Description -->
+        <div class="footer-col cv-col cv-brand">
+          <h2 class="footer-logo cv-logo" style="font-family: 'Times New Roman';">Cancer<span>Vision</span></h2>
+          <small class="cv-tag" style="font-family: 'Times New Roman'; font-size: 14px;">AI-based multi-cancer detection
+            (lung, breast, skin, brain)</small>
+          <p class="cv-desc">
+            Upload images for instant AI analysis, get subtype-level predictions and a downloadable PDF report with
+            model recommendations.
+          </p>
+
+          <div class="footer-social cv-social-row">
+
+            <!-- Twitter -->
+            <a class="cv-social" href="https://x.com/Suvansh31" target="_blank" rel="noopener noreferrer"
+              aria-label="Twitter">
+              <i class="fab fa-twitter"></i>
+            </a>
+
+            <!-- Instagram -->
+            <a class="cv-social" href="https://www.instagram.com/_.suvansh._/" target="_blank" rel="noopener noreferrer"
+              aria-label="Instagram">
+              <i class="fab fa-instagram"></i>
+            </a>
+
+            <!-- LinkedIn -->
+            <a class="cv-social" href="https://www.linkedin.com/in/suvansh36/" target="_blank" rel="noopener noreferrer"
+              aria-label="LinkedIn">
+              <i class="fab fa-linkedin-in"></i>
+            </a>
+
+            <!-- GitHub -->
+            <a class="cv-social" href="https://github.com/Suvansh-DevHub" target="_blank" rel="noopener noreferrer"
+              aria-label="GitHub">
+              <i class="fab fa-github"></i>
+            </a>
+
+          </div>
+
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="footer-col cv-col">
+          <h3 style="font-size: 26px; font-family: 'Times New Roman';">Quick Actions</h3>
+          <ul class="cv-actions-list">
+            <li><a class="cv-link" href="#home" style="font-family: 'Times New Roman'; font-size: 18px;">🏠 Home</a>
+            </li>
+            <li><a class="cv-link" href="#detection" style="font-family: 'Times New Roman'; font-size: 18px;">🧬
+                Detection</a></li>
+            <li><a class="cv-link" href="#about" style="font-family: 'Times New Roman'; font-size: 18px;">📘 About</a>
+            </li>
+            <li><a class="cv-link" href="{{ url_for('contact') }}" target="_blank"
+                style="font-family: 'Times New Roman'; font-size: 18px;">📩 Contact Us</a></li>
+          </ul>
+        </div>
+
+
+
+        <!-- AI Model Info (compact, footer-friendly) -->
+        <div class="footer-col footer-model-info" aria-labelledby="fv-model-info">
+          <h3 id="fv-model-info" style="font-size: 26px !important; font-family: 'Times New Roman';">AI Model Info</h3>
+
+          <dl class="model-info-list">
+            <div class="mi-row">
+              <dt style="font-family: 'Times New Roman'; font-size: 17px !important;">Model</dt>
+              <dd style="font-family: 'Times New Roman'; font-size: 17px !important;">CV-CNN-v1.3</dd>
+            </div>
+
+            <div class="mi-row">
+              <dt style="font-family: 'Times New Roman'; font-size: 17px !important;">Last updated</dt>
+              <dd><time datetime="2025-11-20" style="font-family: 'Times New Roman'; font-size: 17px !important;">20 Nov
+                  2025</time></dd>
+            </div>
+
+            <div class="mi-row">
+              <dt style="font-family: 'Times New Roman'; font-size: 17px !important;">Supported</dt>
+              <dd style="font-family: 'Times New Roman'; font-size: 17px !important;">4 major cancer types</dd>
+            </div>
+
+            <div class="mi-row">
+              <dt style="font-family: 'Times New Roman'; font-size: 17px !important;">Subtype</dt>
+              <dd style="font-family: 'Times New Roman'; font-size: 17px !important;">Subtype enabled</dd>
+            </div>
+
+            <div class="mi-row">
+              <dt style="font-family: 'Times New Roman'; font-size: 17px !important;">Metrics</dt>
+              <dd>
+                <a class="model-card-link" href="/model-card" target="_blank" rel="noopener noreferrer"
+                  aria-label="Open model card and accuracy metrics"
+                  style="font-family: 'Times New Roman'; font-size: 17px !important;">Accuracy Metrics</a>
+              </dd>
+            </div>
+          </dl>
+        </div>
+
+
+        <!-- Contact & Legal -->
+        <div class="footer-col cv-col">
+          <h3 style="font-size: 26px; font-family: 'Times New Roman';">Contact & Legal</h3>
+          <ul class="cv-contact-list">
+            <li><i class="fas fa-envelope" style="margin-right:8px;"></i> <a href="mailto:suvansh36140@gmail.com"
+                style="font-family: 'Times New Roman'; font-size: 18px;">suvansh36140@gmail.com</a></li>
+            <li><i class="fas fa-phone" style="margin-right:8px;"
+                style="font-family: 'Times New Roman'; font-size: 18px;"></i> <a href="tel:+919058819354">(+91)
+                9058819354</a>
+            </li>
+            <li><a href="{{ url_for('privacymain') }}" target="_blank" rel="noopener noreferrer"
+                style="font-family: 'Times New Roman'; font-size: 18px;">Privacy Policy</a></li>
+
+            <li><a href="{{ url_for('termswelcomepage') }}" target="_blank" rel="noopener noreferrer"
+                style="font-family: 'Times New Roman'; font-size: 18px;">Terms & Conditions</a></li>
+
+            <li><a href="{{ url_for('DataUsageAndConsentMainPage') }}" target="_blank" rel="noopener noreferrer"
+                style="font-family: 'Times New Roman'; font-size: 18px;">Data Usage & Consent</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom cv-footer-bottom">
+        <hr />
+        <div class="cv-bottom-inner">
+          <p style="margin-bottom: 25px!important;">© 2025 CancerVision · All rights reserved. | Designed with ❤️ by
+            Suvansh</p>
+        </div>
+
+        <p class="cv-disclaimer" style="font-family: 'Times New Roman'; font-size: 15px!important;">
+          <strong>Disclaimer:</strong> Educational tool only — NOT a medical
+          diagnosis. Consult a doctor for confirmation.
+        </p>
+
+        <!-- hidden file input for JS -->
+        <input type="file" id="cv-file-input" accept="image/*" style="display:none" />
+      </div>
+
+
+      <!-- 🔥 LOADING POPUP -->
+      <div id="loadingPopup" class="loading-popup">
+        <div class="loader-box">
+
+          <!-- 🔥 PROGRESS RING -->
+          <svg class="progress-ring" width="90" height="90">
+            <circle class="bg" cx="45" cy="45" r="35"></circle>
+            <circle class="progress" cx="45" cy="45" r="35"></circle>
+          </svg>
+
+          <!-- 🔥 TEXT -->
+          <p id="loadingText">
+            Analyzing medical patterns...
+          </p>
+
+          <p id="progressPercent">(0%)</p>
+          <small style="color:#666; display:block; margin-top:6px;">
+            AI is processing your scan
+          </small>
+
+        </div>
+      </div>
+
+</body>
+
+</html>

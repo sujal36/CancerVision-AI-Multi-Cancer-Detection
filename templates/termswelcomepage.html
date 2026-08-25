@@ -1,0 +1,234 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CancerVision — Welcome</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      /* Medical / theme colors as HSL triples (Tailwind-style) */
+      --medical-trust: 215 45% 25%;    /* deep navy */
+      --medical-health: 175 45% 55%;   /* teal */
+      --medical-warm: 15 85% 65%;      /* warm accent used on icon */
+      --background: 210 40% 98%;       /* very light bluish-white */
+
+      /* derived / semantic */
+      --accent: var(--medical-health); /* brand teal */
+      --dark: 215 30% 23%;             /* headings / foreground */
+      --muted: 210 10% 50%;            /* muted text */
+      --btn-bg: 215 45% 18%;           /* CTA background */
+
+      /* surfaces */
+      --surface-1: 0 0% 100%;
+      --surface-2: 210 35% 96%;
+      --surface-3: 210 25% 94%;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Poppins,system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial;}
+    body{overflow:hidden;color:hsl(var(--dark));background:hsl(var(--background));}
+
+    /* container for two pages (home + terms) */
+    .page{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;padding:40px;transition:transform .55s cubic-bezier(.2,.9,.2,1),opacity .35s;}
+    .page:not(.active){transform:translateX(100%);opacity:0;pointer-events:none}
+
+    /* BACKGROUND: adjusted to closely match React screenshot
+       - from-medical-trust at 0%
+       - via-medical-health at 25% with 20% opacity
+       - to-background at 100%
+    */
+    .bg-layer{
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(
+          110deg,
+          hsl(var(--medical-trust)) 0%,
+          hsl(var(--medical-health) / 0.20) 25%,
+          hsl(92 8% 40% / 0.06) 38%,
+          hsl(var(--background)) 100%
+        );
+      filter:contrast(1.05) saturate(1.02);
+    }
+    /* subtle glossy overlay to better match lighting from screenshot */
+    .bg-layer::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(140deg,hsl(0 0% 100% / 0.06),hsl(0 0% 100% / 0.35));
+      mix-blend-mode:overlay;
+      pointer-events:none;
+    }
+
+    /* hero card center */
+    .hero{max-width:880px;text-align:center;padding:60px 20px}
+   .icon-wrap{
+  width:95px;
+  height:95px;
+  margin:0 auto 26px;
+  border-radius:24px;
+
+  background:hsla(0, 1%, 71%, 0.35);   /* soft grey-white */
+  backdrop-filter:blur(12px);           /* glassy blur */
+  -webkit-backdrop-filter:blur(12px);
+
+  
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  
+}
+.icon-wrap svg{
+  width:56px;
+  height:56px;
+  opacity:0.95;
+}
+
+
+    h1{font-size:72px;line-height:1;margin:0 0 14px;color:hsl(var(--dark));font-weight:800}
+    h1 .brand{display:block;color:hsl(var(--accent));font-weight:800;font-size:72px;margin-top:6px}
+    p.lead{max-width:820px;margin:14px auto 28px;color:hsl(var(--muted));font-size:18px;line-height:1.8}
+
+    .cta{
+      display:inline-flex;align-items:center;gap:12px;
+      background:hsl(var(--btn-bg));
+      color:hsl(0 0% 100%);
+      padding:14px 20px;border-radius:12px;border:none;font-weight:600;cursor:pointer;
+      box-shadow:0 6px 18px hsl(var(--btn-bg) / 0.18);
+      padding-left: 28px !important;   /* pehli image jaisa left spacing */
+
+    }
+    /* SVG inside the icon panel: white stroke, bigger */
+.cta .cta-icon svg{
+  width:18px;
+  height:18px;
+  display:block;
+  stroke: hsl(0 0% 100%);
+  fill: none;
+}
+
+    .subtext{margin-top:18px;color:hsl(var(--dark) / 0.60);font-size:14px}
+
+    /* Terms page card */
+    .terms-card{
+      width:900px;max-width:96%;max-height:86vh;
+      background:linear-gradient(180deg,hsl(0 0% 100% / 0.6),hsl(0 0% 100% / 0.9));
+      border-radius:16px;padding:28px;box-shadow:0 12px 40px hsl(var(--dark) / 0.08);
+      overflow:hidden;display:flex;flex-direction:column;
+    }
+    .terms-head{display:flex;align-items:center;justify-content:space-between;padding-bottom:8px}
+    .terms-head h2{margin:0;font-size:28px;color:hsl(var(--dark))}
+    .back-btn{
+      background:transparent;border:1px solid hsl(var(--dark) / 0.08);
+      padding:8px 12px;border-radius:10px;cursor:pointer;
+    }
+    .terms-body{
+      overflow:auto;padding-right:8px;margin-top:12px;line-height:1.6;color:hsl(var(--dark));
+    }
+    .terms-body h3{margin-top:18px}
+
+    /* small screens */
+    @media (max-width:720px){
+      h1{font-size:36px}
+      h1 .brand{font-size:36px}
+      .hero{padding:30px}
+      .icon-wrap{width:64px;height:64px;border-radius:14px}
+      .terms-card{padding:18px}
+    }
+
+    /* subtle entrance animation */
+    .page.active .hero,.page.active .terms-card{transform:translateY(0);opacity:1;transition:transform .6s cubic-bezier(.2,.9,.2,1),opacity .4s}
+    .hero,.terms-card{transform:translateY(8px);opacity:.98}
+
+
+/* --- HOVER / FOCUS STATES: match the teal "active" look --- */
+.cta:hover,
+.cta:focus{
+  background: hsl(var(--medical-health)); /* teal */
+  box-shadow: 0 14px 36px hsl(var(--medical-health) / 0.18);
+  transform: translateY(-1px);
+  outline: none;
+}
+
+/* lighten the small icon panel on hover so icon stands out like screenshot */
+.cta:hover .cta-icon,
+.cta:focus .cta-icon{
+  background: hsl(0 0% 100% / 0.12); /* slightly brighter panel */
+  box-shadow: 0 8px 18px hsl(var(--medical-health) / 0.08);
+}
+
+/* ensure the SVG stroke stays white (if you want warm accent instead, change here) */
+.cta:hover .cta-icon svg,
+.cta:focus .cta-icon svg{
+  stroke: hsl(0 0% 100%);
+}
+
+/* keyboard focus visible */
+.cta:focus-visible{
+  box-shadow: 0 0 0 4px hsl(var(--medical-health) / 0.14), 0 12px 30px hsl(var(--medical-health) / 0.12);
+}
+
+    
+  </style>
+</head>
+<body>
+  <div class="bg-layer" aria-hidden="true"></div>
+
+  <!-- HOME PAGE -->
+  <main id="home" class="page active" role="main" aria-labelledby="welcomeTitle">
+    <section class="hero" id="hero">
+      <div class="icon-wrap" aria-hidden="true">
+  <svg xmlns="http://www.w3.org/2000/svg" 
+       viewBox="0 0 24 24" 
+       fill="none" 
+       stroke="hsl(var(--medical-warm))"
+       stroke-width="2" 
+       stroke-linecap="round" 
+       stroke-linejoin="round"
+       class="lucide lucide-shield">
+    <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path>
+  </svg>
+</div>
+
+
+      <h1 id="welcomeTitle" style="font-size: 68px; margin-top: 60px; font-family: ui-sans-serif;">Welcome to <span class="brand" style="font-size: 68px;">CancerVision</span></h1>
+      <p class="lead" style="margin-top: 50px;">AI-powered medical image analysis to support healthcare professionals in making informed decisions.</p>
+
+      
+<!-- --- HTML: replace your current button block with this --- -->
+<div style="margin-top:60px">
+  <button id="viewBtn" class="cta" aria-controls="terms" title="View Terms & Conditions">
+    <!-- icon panel (document/file icon) -->
+    <span class="cta-icon" aria-hidden="true">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <!-- file shape -->
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M14 2v6h6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <!-- inside short lines -->
+        <path d="M9 13h6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M9 17h6" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M9 9h3"  stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </span>
+
+    <span>View Terms &amp; Conditions</span>
+  </button>
+</div>
+
+
+      <div class="subtext" style="margin-top: 60px;">Supporting better healthcare through responsible AI</div>
+    </section>
+  </main>
+
+
+  <script>
+  document.getElementById('viewBtn').addEventListener('click', function(){
+    window.location.href = '/terms';
+  });
+</script>
+
+</body>
+</html>

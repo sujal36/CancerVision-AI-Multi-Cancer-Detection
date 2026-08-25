@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Privacy & Data Policy for Cancer Vision Contact Form">
+    <title>Privacy & Data Policy - Cancer Vision</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Segoe UI", Roboto;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: linear-gradient(135deg, #e8f0f8 0%, #f0f4f9 100%);
+            min-height: 100vh;
+            padding: 3rem 1rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 4rem;
+            padding: 0;
+        }
+
+        /* Headings use Times New Roman */
+        h1,
+        h2 {
+            font-family: "Times New Roman";
+            color: #00264d;
+            font-weight: 700;
+        }
+
+        /* Main title spacing */
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 4rem;
+            /* increased gap below main heading */
+        }
+
+        /* "Last updated" line */
+        .header-meta {
+            color: #555;
+            font-size: 0.95rem;
+            margin-bottom: 4rem;
+            /* gap between updated line and intro text */
+        }
+
+        /* Intro paragraph block */
+        .header-intro {
+            color: #666;
+            font-size: 1rem;
+            margin-top: 0;
+            /* no extra top gap; spacing handled by header-meta */
+            margin-bottom: 8rem;
+            /* clear space between intro and first section */
+            line-height: 1.7;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0;
+        }
+
+        /* Sections: add consistent top gap and keep bottom gap */
+        section {
+            margin-top: 7rem;
+            /* gap before each section */
+            margin-bottom: 5.5rem;
+            /* gap after each section */
+            padding-bottom: 0;
+        }
+
+        section:last-of-type {
+            margin-bottom: 2rem;
+        }
+
+        /* Section heading spacing */
+        h2 {
+            font-size: 27px;   /* heading size */
+            margin-bottom: 3.25rem;
+            /* space between heading and its content */
+            font-weight: 600;
+        }
+
+        p {
+            margin-bottom: 4rem;
+            margin-top: 4.25rem;
+            /* small top gap to keep lines clear */
+            line-height: 1.8;
+            font-size: 18px; 
+        }
+
+        ul {
+            margin: 0.9rem 0 1rem 2rem;
+            line-height: 1.9;
+            margin-bottom: 4.25rem;
+            font-size: 18px; 
+
+        }
+
+        li {
+            margin-bottom: 2.7rem;
+            font-size: 18px; 
+        }
+
+        strong {
+            color: #00264d;
+            font-weight: 600;
+        }
+
+        em {
+            color: #555;
+        }
+
+        a {
+            color: #0066cc;
+            text-decoration: underline;
+            transition: color 0.2s ease;
+        }
+
+        a:hover {
+            color: #00264d;
+        }
+
+        a:focus {
+            outline: 2px solid #0066cc;
+            outline-offset: 2px;
+            border-radius: 2px;
+        }
+
+        /* Contact info block */
+        .contact-section {
+            margin: 2rem 0;
+            padding: 1.5rem;
+            border-left: 3px solid #00264d;
+            background: rgba(232, 240, 248, 0.5);
+            border-radius: 4px;
+        }
+
+        .contact-section p {
+            margin-bottom: 0.6rem;
+            font-size: 18px; 
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            color: #666;
+            font-size: 18px; 
+            border-top: 2px solid #e0e0e0;
+            margin-top: 4rem;
+        }
+
+        .disclaimer {
+            font-weight: 600;
+            color: #00264d;
+            display: block;
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1.5rem 1rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+                margin-bottom: 1rem;
+                /* slightly reduced on small screens */
+            }
+
+            h2 {
+                font-size: 1.3rem;
+                margin-bottom: 0.9rem;
+            }
+
+            main {
+                padding: 0;
+            }
+
+            section {
+                margin-top: 1.6rem;
+                margin-bottom: 2.5rem;
+            }
+
+            ul {
+                margin: 1rem 0 1rem 1.5rem;
+            }
+
+            .header-intro {
+                margin-bottom: 1.6rem;
+                /* less space on mobile so first section isn't pushed too far */
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            a {
+                transition: none;
+            }
+        }
+
+        section h2::before {
+            content: "•";
+            color: #00264d;
+            font-size: 1.8rem;
+            /* size of the big dot */
+            font-weight: 900;
+            display: inline-block;
+            vertical-align: middle;
+            /* aligns dot center with heading text */
+            margin-right: 0.6rem;
+            line-height: 1;
+            /* keep consistent height */
+            transform: translateY(-2px);
+            /* fine-tune vertical position */
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Privacy & Data Policy</h1>
+        <div class="header-meta">Last updated: <span id="updated-date">November 2025</span></div>
+        <div class="header-intro">
+            <p>This Privacy & Data Policy applies only to the Contact / Support form of Cancer Vision. It explains what
+                information we collect, how we use it, and how it's protected.</p>
+        </div>
+    </header>
+
+    <main>
+        <section>
+            <h2>Introduction : </h2>
+            <p>Cancer Vision is a research-based AI tool that assists with image-based cancer detection for educational
+                use. <strong>It is not a medical device.</strong> Always consult a professional for medical advice.</p>
+        </section>
+
+        <section>
+            <h2>Information We Collect :</h2>
+            <p>Through our Contact / Support form, we collect:</p>
+            <ul>
+                <li>Form details: name, email, phone number, preferred contact method, and message content.</li>
+                <li>Optional details: organization, role, address, website/LinkedIn, uploaded attachments (images or
+                    PDFs for context).</li>
+            </ul>
+            <p><strong>We do not collect any medical data, health records, or biometric information through this
+                    form.</strong></p>
+        </section>
+
+        <section>
+            <h2>Purpose of Data Collection :</h2>
+            <ul>
+                <li>Respond to your inquiry or support request.</li>
+                <li>Provide follow-up communication.</li>
+                <li>Handle partnership or collaboration requests.</li>
+                <li>Maintain internal records to improve service quality.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>How We Store and Protect Your Data :</h2>
+            <ul>
+                <li>All submissions sent securely over HTTPS.</li>
+                <li>Data stored on secure cloud servers (e.g., Google Cloud / Firebase).</li>
+                <li>Access limited to authorized support members only.</li>
+                <li>Uploaded files are deleted automatically within 30 days unless needed for support follow-up.</li>
+                <li>We do not sell, rent, or share your information publicly.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2> Data Sharing :</h2>
+            <ul>
+                <li>Shared only with internal team members handling your query.</li>
+                <li>Shared with service providers (hosting/email) under confidentiality agreements.</li>
+                <li>Shared only if legally required by authorities.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h2> Your Rights :</h2>
+            <ul>
+                <li>Request a copy or deletion of your submitted data anytime.</li>
+                <li>Correct inaccurate information.</li>
+                <li>Contact us for privacy concerns at: <a
+                        href="mailto:cancervision.helpdesk@gmail.com">cancervision.helpdesk@gmail.com</a></li>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Cookies & Tracking :</h2>
+            <p>The Contact page does not use cookies or tracking. General website analytics (if active) collect
+                anonymous visit data only and are not linked to contact form submissions.</p>
+        </section>
+
+        <section>
+            <h2> Policy Updates :</h2>
+            <p>This policy may be updated periodically. The latest version is always available at
+                <em>/docs/privacy.html</em>.</p>
+        </section>
+
+        <section>
+            <h2> Contact :</h2>
+            <div class="contact-section">
+                <p><strong>Email :</strong> <a
+                        href="mailto:cancervision.helpdesk@gmail.com"> cancervision.helpdesk@gmail.com</a></p>
+                <p><strong>Office:</strong> Cancer Vision Lab, Meerut Institute of Engineering &amp; Technology</p>
+            </div>
+        </section>
+
+        <footer>
+            <p>&copy; Cancer Vision — Contact &amp; Support Privacy Policy. For research or detection data, see the main
+                project policy.</p>
+            <span class="disclaimer">Not a medical device.</span>
+        </footer>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const dateSpan = document.getElementById('updated-date');
+            if (dateSpan) {
+                const date = new Date();
+                const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+                    'July', 'August', 'September', 'October', 'November', 'December'];
+                const monthYear = monthNames[date.getMonth()] + ' ' + date.getFullYear();
+                dateSpan.textContent = monthYear;
+            }
+        });
+    </script>
+</body>
+
+</html>

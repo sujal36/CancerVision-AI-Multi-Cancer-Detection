@@ -1,0 +1,1616 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>CancerVision — Terms & Conditions</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --medical-trust: 215 45% 25%;    /* navy */
+    --medical-health: 175 45% 55%;   /* teal */
+    --medical-warm: 15 85% 65%;
+    --bg: 210 40% 98%;
+    --muted: 210 10% 50%;
+    --radius: 16px;
+    --content-width: 920px;
+    --header-height: 0px; /* will be updated by JS if header is sticky */
+  }
+
+  *{box-sizing:border-box}
+  html,body{
+    height:100%;
+    margin:0;
+    font-family:Poppins,system-ui,Segoe UI,Roboto,"Helvetica Neue",Arial;
+    background:hsl(var(--bg));
+    color:hsl(var(--medical-trust));
+    -webkit-font-smoothing:antialiased;
+     overflow-x: hidden;
+  }
+  a{color:inherit;text-decoration:none}
+
+  /* HEADER (dark blue bar) */
+  .hero-dark{
+    background: hsl(var(--medical-trust));
+    color: #fff;
+    padding:48px 20px 120px;
+    /* header is not fixed by default; if you later make it fixed/sticky, JS will detect and offset anchors */
+  }
+  .hero-inner{
+    max-width:1180px;
+    margin:0 auto;
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:20px;
+      padding-left: 30px;   /* 👈 add this */
+  }
+  .hero-left{max-width:1000%;
+  }
+
+  .title-row{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin-bottom:8px;
+  }
+
+  /* NEW SVG ICON — clean lucide shield */
+  .shield-icon svg{
+    width:46px;
+    height:46px;
+    stroke: hsl(var(--medical-warm));
+  }
+
+  .hero-left h1{
+    font-size:50px;
+    margin:0;
+    font-weight:800;
+    font-family: ui-sans-serif;
+  }
+  .hero-left p{
+    margin:14px 0 0;
+    color:rgba(255,255,255,0.9);
+    line-height:1.7;
+    font-size:20px;
+    font-family: ui-sans-serif;
+  }
+  .meta{
+    margin-top:18px;
+    color:rgba(255,255,255,0.78);
+    font-size:13px;
+    font-family: ui-sans-serif;
+  }
+
+  /* PAGE GRID */
+  .page-wrap{
+    max-width:1180px;
+    margin:36px auto;
+    padding:18px;
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:28px;
+    align-items:start;
+  }
+
+  /* ===== CHANGED: make content flush like React (no big white card) ===== */
+  .left-card{
+    background: transparent;      /* no white container */
+    border-radius: 0;
+    padding: 0;
+    box-shadow: none;
+    max-height: none;
+    overflow: visible;
+    display:block;
+  }
+
+  /* center the content inside the left column and control readable width */
+  .content-inner{
+    max-width: var(--content-width);
+    margin: 0 auto;
+  }
+
+  /* SECTIONS — each section is flush on page (no card); they have spacing and subtle divider */
+  .section{
+    padding: 36px 0;                      /* vertical spacing between sections */
+    background: transparent;
+  }
+  .section:last-child{border-bottom:0}
+
+  .heading{
+    display:flex;
+    align-items:center;
+    gap:14px;
+    margin-bottom:18px;
+  }
+
+  .round-icon{
+    width:52px;
+    height:52px;
+    border-radius:12px;
+    background:rgba(23,168,156,0.08);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:hsl(var(--medical-health));
+    font-weight:700;
+    font-size:20px;
+    flex:0 0 52px;
+  }
+
+  .section h2{
+    font-size:28px;
+    margin:0;
+    font-weight:800;
+    color:hsl(var(--medical-trust));
+  }
+
+  .section p{
+    color:hsl(var(--muted));
+    line-height:1.85;
+    margin:12px 0 0;
+    font-size:15px;
+  }
+
+  .note{
+    background:#fff6f6;
+    border-left:4px solid #f2b7b7;
+    padding:14px;
+    border-radius:10px;
+    margin:14px 0;
+    color:#6b2b2b;
+  }
+  .note.info{
+    background:#f6fbff;
+    border-left:4px solid #d6eefb;
+    color:#08324a;
+  }
+
+  /* RIGHT TOC (sticky sidebar) */
+ .toc{
+  position: sticky;
+  top: 40px;
+  background:#fff;
+  border-radius:14px;
+  padding:20px;
+  border:1px solid rgba(12,18,24,0.06);
+  box-shadow:0 6px 18px rgba(12,18,24,0.03);
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+
+  .toc h4{
+    margin:0 0 12px;
+    font-size:15px;
+    color:hsl(var(--medical-trust));
+  }
+
+  .toc a{
+    display:block;
+    padding:12px;
+    border-radius:10px;
+    margin-bottom:8px;
+    color:hsl(var(--muted));
+    font-size:14px;
+    position:relative;
+  }
+
+  .toc a:hover{
+    background:rgba(23,168,156,0.04);
+    color:hsl(var(--medical-trust));
+    border-left:3px solid hsl(var(--medical-health));
+  }
+
+  .toc a.active{
+   border-left: 3px solid hsl(var(--medical-health));
+   background: rgba(23,168,156,0.04);
+   color: hsl(var(--medical-trust));
+   padding-left: 9px;
+  }
+
+  .toc a.active::before{
+    content:"";
+    position:absolute;
+    left:8px;
+    top:10px;
+    bottom:10px;
+    width:4px;
+  }
+
+  /* RESPONSIVE */
+  @media(max-width:980px){
+    .page-wrap{grid-template-columns:1fr}
+    .toc{position:relative;margin-top:20px}
+    .left-card{max-height:none}
+    .section{padding:28px 0}
+    .content-inner{padding:18px 8px}
+  }
+
+  .hero-dark,
+.hero-inner,
+.hero-left {
+  overflow: visible; /* allow child to grow outside container */
+}
+
+
+/* Consent box — matches site typography/colors but scoped for safety */
+.consent-box {
+    background: #f0f9ff;
+    border: 2px solid #0ea5e9;
+    border-radius: 8px;
+    padding: 22px;
+    margin: 28px 0 8px 0;
+}
+
+.consent-box h3 {
+    color: #0369a1;
+    margin-bottom: 12px;
+    font-size: 1.15em;
+    font-family: ui-sans-serif;
+}
+
+.consent-item {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 14px;
+    gap: 12px;
+}
+
+.consent-item input[type="checkbox"] {
+    margin-top: 4px;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    accent-color: #0ea5e9;
+    flex-shrink: 0;
+}
+
+.consent-item label {
+    cursor: pointer;
+    color: #475569;
+    font-size: 0.98em;
+    line-height: 1.6;
+    font-family: ui-sans-serif;
+}
+
+.consent-item label strong {
+    color: #1e293b;
+}
+
+.button-group {
+    display: flex;
+    gap: 12px;
+    margin-top: 16px;
+    flex-wrap: wrap;
+}
+
+button {
+    padding: 12px 18px;
+    font-size: 0.98em;
+    font-weight: 600;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.22s ease;
+}
+
+.btn-accept {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    flex: 1;
+    min-width: 170px;
+}
+
+.btn-accept:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px rgba(16, 185, 129, 0.18);
+}
+
+.btn-accept:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-decline {
+    background: #f3f4f6;
+    color: #1f2937;
+    flex: 1;
+    min-width: 120px;
+    border: 1px solid #d1d5db;
+}
+
+.btn-decline:hover {
+    background: #e5e7eb;
+    transform: translateY(-2px);
+}
+
+.status-message {
+    margin-top: 12px;
+    padding: 10px 14px;
+    border-radius: 6px;
+    display: none;
+}
+
+.status-message.success {
+    background: #dcfce7;
+    color: #166534;
+    border-left: 4px solid #16a34a;
+    display: block;
+}
+
+.status-message.error {
+    background: #fee2e2;
+    color: #991b1b;
+    border-left: 4px solid #dc2626;
+    display: block;
+}
+
+/* enable smooth scrolling for anchor navigation */
+html { scroll-behavior: smooth; }
+
+/* ensure sections leave space for header when jumped-to (JS updates --header-height if necessary) */
+.section {
+  scroll-margin-top: calc(var(--header-height) + 20px); /* 20px extra gap */
+}
+
+/* ---- Print metadata styles (only visible in print) ---- */
+.print-meta {
+  display: none;
+  font-size: 12px;
+  color: #333;
+  margin-top: 18px;
+}
+@media print {
+  .toc, .button-group, input[type="checkbox"], .btn-decline, .btn-accept { display: none !important; }
+  .print-meta { display: block !important; }
+}
+
+
+
+</style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="hero-dark">
+    <div class="hero-inner">
+      <div class="hero-left">
+        <div class="title-row">
+
+          <!-- ⭐ NEW CLEAN SHIELD ICON -->
+          <div class="shield-icon" aria-hidden="true" style="margin-top: 40px;">
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 width="46" height="46"
+                 viewBox="0 0 24 24"
+                 fill="none"
+                 stroke="hsl(var(--medical-warm))"
+                 stroke-width="2"
+                 stroke-linecap="round"
+                 stroke-linejoin="round" aria-hidden="true">
+              <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path>
+            </svg>
+          </div>
+
+        <h1 style="font-family: ui-sans-serif; font-size: 50px; margin-top: 40px;" >Terms &amp; Conditions</h1>
+        </div>
+
+  <p style="
+  font-family: ui-sans-serif;
+  font-size: 20px;
+  margin-top: 50px;
+  width: calc(100vw - 160px); /* use full visible width */
+  max-width: none;
+  overflow: visible;
+  text-overflow: clip;
+">
+  Welcome to CancerVision. We believe in transparency and clarity. Please read these terms carefully – they're written to be friendly and understandable<br> while
+  keeping you fully informed.
+</p>
+
+
+<div class="meta" style="font-family: ui-sans-serif; font-size: 20px; margin-top: 50px;">Last updated: December 1, 2025</div>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <div class="page-wrap">
+
+    <!-- LEFT CONTENT AREA (now transparent container + inner centered content) -->
+    <div class="left-card" id="contentScroll">
+      <div class="content-inner">
+
+       <!-- 1. Our Service -->
+       <section id="service" class="section">
+  <div class="heading">
+    <div class="round-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" 
+           width="26" height="26"
+           viewBox="0 0 24 24" 
+           fill="none" 
+           stroke="hsl(var(--medical-health))"
+           stroke-width="2" 
+           stroke-linecap="round" 
+           stroke-linejoin="round">
+        <path d="M11 2v2"></path>
+        <path d="M5 2v2"></path>
+        <path d="M5 3H4a2 2 0 0 0-2 2v4a6 6 0 0 0 12 0V5a2 2 0 0 0-2-2h-1"></path>
+        <path d="M8 15a6 6 0 0 0 12 0v-3"></path>
+        <circle cx="20" cy="10" r="2"></circle>
+      </svg>
+    </div>
+
+    <h2 style="font-family: ui-sans-serif; font-size: 35px;">What CancerVision Does</h2>
+  </div>
+
+  <!-- FIRST PARAGRAPH -->
+  <p style="font-family: ui-sans-serif; font-size: 20px; margin-top: 50px;">
+    CancerVision is an AI-powered tool designed to assist in analyzing medical images for potential signs of cancer. Think of us as a supportive second opinion – we use advanced machine learning to examine images and highlight areas that may warrant closer attention from medical professionals.
+  </p>
+
+  <!-- SECOND PARAGRAPH -->
+  <p style="font-family: ui-sans-serif; font-size: 20px; margin-top: 55px;">
+    Our service provides visual analysis including confidence scores and heatmaps to help healthcare providers make more informed decisions. We're here to support the diagnostic process, not replace it.
+  </p>
+
+  <!-- 🔥 NEW FEATURES ADDED HERE (CLEAN + MATCHING STYLE) -->
+  <p style="font-family: ui-sans-serif; font-size: 20px; margin-top: 60px; margin-bottom: 50px;">
+    In addition, CancerVision offers advanced clinician-focused features:
+  </p>
+
+  <ul style="font-family: ui-sans-serif; font-size: 20px; line-height: 1.85; margin-top: 45px; padding-left: 32px; color: hsl(var(--muted)); max-width: 900px;">
+    <li><strong>Subtype Classification:</strong> Categorizes detected abnormalities into clinically meaningful subtypes to support deeper diagnostic evaluation.</li>
+
+    <li style="margin-top: 45px;">
+      <strong>Downloadable PDF Reports:</strong> Generates exportable, clinician-ready reports summarizing analysis, confidence scores, and heatmaps for medical review or documentation.
+    </li>
+  </ul>
+
+</section>
+
+       <!-- INTENDED USE (added exactly as requested) -->
+<section id="intended-use" class="section">
+  <div class="heading"><div class="round-icon">ℹ️</div><h2>Intended Use &amp; Intended Users</h2></div>
+  <p>CancerVision is intended as a clinical decision-support tool for use by qualified healthcare professionals (radiologists, oncologists and treating clinicians) to assist in the interpretation of medical images (CT, X-ray, MRI, mammography, dermoscopy). It is not intended for use as a standalone screening tool by patients or untrained users.</p>
+</section>
+
+       <!-- NEW: 2. Definitions -->
+<section id="definitions" class="section">
+  <div class="heading">
+    <div class="round-icon" aria-hidden="true">📘</div>
+    <h2 style="font-family: ui-sans-serif; font-size: 35px;">Definitions</h2>
+  </div>
+
+  <p style="font-family: ui-sans-serif; font-size:20px; line-height:1.9; margin-top:18px;">
+    For clarity, these terms are used throughout these Terms:
+  </p>
+
+  <ul style="font-family: ui-sans-serif; font-size:18px; line-height:1.9; padding-left:22px; margin-top:12px; max-width:920px;">
+    <li><strong>"Service"</strong> means the CancerVision platform, including the website, APIs, AI analysis tools, and any reports or downloadable outputs provided by us.</li>
+    <li style="margin-top:10px;"><strong>"User"</strong> means any individual or entity accessing or using the Service.</li>
+    <li style="margin-top:10px;"><strong>"Medical Data"</strong> includes all imaging files, associated metadata, and patient information uploaded to the Service for analysis.</li>
+    <li style="margin-top:10px;"><strong>"Model Version"</strong> is the identifier for the AI model used to generate a given analysis report (e.g., CV-CNN-v1.3).</li>
+  </ul>
+</section>
+
+       <!-- 3. Model Versions -->
+<section id="model-updates" class="section">
+  <div class="heading">
+    <div class="round-icon" aria-hidden="true">🔁</div>
+    <h2 style="font-family: ui-sans-serif; font-size: 35px;">Model Versions &amp; Updates</h2>
+  </div>
+
+  <p style="font-family: ui-sans-serif; font-size:20px; line-height:1.9; margin-top:18px;">
+    AI models are periodically updated to improve performance. Each generated report includes a model version identifier (for example: <em>CV-CNN-v1.3</em>) so clinicians can trace which model produced the output.
+    Updates may change outputs; if you require reproducibility for medico-legal or audit purposes, contact support to obtain the model version used for a specific analysis.
+  </p>
+
+  <!-- ------- START: Minimal Model Card (added) ------- -->
+  <div style="margin-top:22px; padding:18px; border-radius:10px; background:#fbfdff; border:1px solid rgba(12,18,24,0.04); max-width:920px;">
+    <div style="font-weight:700; margin-bottom:8px; font-size:16px; color:hsl(var(--medical-trust));">Model Card — Topline (summary)</div>
+
+    <div style="font-size:14px; color:hsl(var(--muted)); line-height:1.7;">
+      <strong>Architectures:</strong> MobileNet (lightweight inference), EfficientNet / ResNet / DenseNet (high-capacity models).<br>
+      <strong>Per-organ exemplar metrics (internal eval):</strong>
+      <ul style="margin:8px 0 0 18px;">
+        <li>Lung CT (detection): AUC 0.94 — Sensitivity 0.89 / Specificity 0.86 (slice-level aggregated to study-level)</li>
+        <li>Brain MRI (tumor detection/subtyping): AUC 0.91 — Sensitivity 0.87 / Specificity 0.84</li>
+        <li>Breast Mammography (abnormality detection / subtype): AUC 0.89 — Sensitivity 0.85 / Specificity 0.82</li>
+        <li>Skin Dermoscopy (lesion classification): AUC 0.88 — Sensitivity 0.83 / Specificity 0.80</li>
+      </ul>
+      <div style="margin-top:8px;">
+        <strong>Intended use:</strong> Support clinician review as a decision-support tool (triage / second opinion). <em>Not</em> cleared as a standalone diagnostic device. See "Medical Disclaimer" above.
+      </div>
+      <div style="margin-top:8px;">
+        <strong>Known limitations:</strong> performance degrades with very low image quality, non-standard acquisition parameters, or when metadata (orientation, slice spacing) is missing; results should be confirmed by qualified clinicians.
+      </div>
+    </div>
+  </div>
+  <!-- ------- END: Minimal Model Card ------- -->
+
+  <!-- Small note for PDF/report metadata (printed into report footer) -->
+  <div style="margin-top:14px; font-size:13px; color:hsl(var(--muted));">
+    Reports include model version, run timestamp, and report id in the downloadable PDF footer for traceability.
+  </div>
+</section>
+
+       <!-- 4. Medical Disclaimer -->
+<section id="disclaimer" class="section">
+  <div class="heading">
+    
+    <!-- ICON -->
+    <div class="round-icon" style="margin-top: 50px;">
+      <svg xmlns="http://www.w3.org/2000/svg"
+        width="26" height="26"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="hsl(var(--medical-health))"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"></circle>
+        <line x1="12" y1="8" x2="12" y2="12"></line>
+        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+      </svg>
+    </div>
+
+    <h2 style="font-family: ui-sans-serif; font-size: 35px; margin-top: 50px;">
+      Important Medical Disclaimer
+    </h2>
+  </div>
+
+  <div class="note" style="padding: 24px; margin-top: 95px; border-radius: 10px; border-left: 5px solid #EF4444; background:#EF44441A;">
+
+  <!-- Title -->
+  <div style="
+      font-family: ui-sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      color:#EF4444;
+      margin-bottom: 54px;
+  ">
+    Please Read Carefully
+  </div>
+
+  <!-- Body Text -->
+  <div style="
+      font-family: ui-sans-serif;
+      font-size: 18px;
+      line-height: 1.75;
+      color:#6b2b2b;
+  ">
+    CancerVision is NOT a diagnostic tool and should NEVER be used as the sole basis for medical decisions.
+    Our AI provides analysis to support healthcare professionals – it does not diagnose, treat, cure, or prevent any disease.
+  </div>
+
+</div>
+
+
+  <p style="font-family: ui-sans-serif; font-size: 20px; margin-top: 55px;">
+    <strong>Always consult with qualified healthcare providers</strong> for medical advice, diagnosis, and treatment.
+    Our results should be interpreted by trained medical professionals within the context of comprehensive patient care.
+  </p>
+
+  <p style="font-family: ui-sans-serif; font-size: 20px; margin-top: 55px;">
+    In case of medical emergency, contact emergency services immediately.
+    Do not rely on CancerVision for urgent medical situations.
+  </p>
+</section>
+
+       <!-- 5. Understanding Results -->
+<section id="guidance" class="section">
+  
+  <div class="heading">
+    <div class="round-icon" style="margin-top: 100px;">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chart-column w-6 h-6 text-medical-health"><path d="M3 3v16a2 2 0 0 0 2 2h16"></path><path d="M18 17V9"></path><path d="M13 17V5"></path><path d="M8 17v-3"></path></svg>
+    </div>
+
+    <h2 style="font-family: ui-sans-serif; font-size: 35px; margin-top: 100px;">Understanding Your Results</h2>
+  </div>
+
+  <p style="font-family: ui-sans-serif; font-size: 20px; margin-top: 65px;">
+    Our analysis comes with two key visual components to help you understand what we've found:
+  </p>
+
+  <!-- Large gray box like React -->
+  <div style="
+    background: #F1F5F8;
+    padding: 28px;
+    border-radius: 16px;
+    margin-top: 80px;
+    font-family: ui-sans-serif;
+  ">
+
+    <!-- Confidence Scores -->
+    <div style="margin-bottom: 26px;">
+      <div style="font-family: ui-sans-serif; font-size: 20px; margin-top: 25px; font-weight: 700; margin-bottom: 25px;">
+        Confidence Scores
+      </div>
+
+      <div style="font-family: ui-sans-serif; font-size: 19px; margin-top: 45px; margin-bottom: 75px;">
+        These are percentage values (0–100%) indicating how certain our AI is about its analysis.  
+        A higher score means our model detected patterns more strongly associated with the condition we’re analyzing for.  
+        <strong>Important:</strong> Even high confidence scores require professional medical interpretation and should never be used in isolation.
+      </div>
+    </div>
+
+    <!-- Heatmaps -->
+    <div>
+      <div style="font-family: ui-sans-serif; font-size: 20px; margin-top: 25px; font-weight: 700; margin-bottom: 25px;">
+        Heatmaps
+      </div>
+
+      <div  style="font-family: ui-sans-serif; font-size: 19px; margin-top: 45px; margin-bottom: 35px;">
+        Visual overlays showing which areas of the image our AI focused on during analysis.  
+        Warmer colors (red, orange) indicate regions that contributed more to the prediction.  
+        These help medical professionals understand AI’s “reasoning” but are interpretive tools, not definitive markers of disease location.
+      </div>
+    </div>
+  </div>
+
+  <!-- Remember footer -->
+  <p style="
+    line-height: 1.75;
+    margin-top: 75px;
+    color: #415465;
+    padding-left: 15px;
+     font-family: ui-sans-serif; 
+     font-size: 19px; 
+      margin-bottom: 55px;
+  ">
+    <strong style="font-family: ui-sans-serif; font-size: 20px; margin-top: 35px; margin-bottom: 35px;">Remember:</strong>  
+    Our AI can make mistakes. False positives and false negatives are possible. Results must always be
+    validated by qualified medical professionals using comprehensive diagnostic methods.
+  </p>
+
+</section>
+
+       <!-- REPORTS & DOWNLOADS (added) -->
+<section id="reports" class="section">
+  <div class="heading"><div class="round-icon">📄</div><h2>Reports &amp; Downloads</h2></div>
+  <p>Downloadable PDF reports summarize model outputs, heatmaps, and model metadata (version, run timestamp, report id). Reports are provided for convenience and clinical support only. <strong>Do not rely solely on report outputs for clinical decisions.</strong></p>
+</section>
+
+       <!-- PERMITTED USES (added) -->
+<section id="permitted" class="section">
+  <div class="heading"><div class="round-icon">✔️</div><h2>Permitted Uses</h2></div>
+  <p>You may use CancerVision only for lawful healthcare-related analysis and internal clinical review consistent with these Terms and any subscription limits. Any other use is prohibited.</p>
+</section>
+
+       <!-- REGULATORY STATUS (added) -->
+<section id="regulatory" class="section">
+  <div class="heading"><div class="round-icon">⚕️</div><h2>Regulatory Status</h2></div>
+  <p>CancerVision is provided as a clinical decision-support tool. It is <strong>not</strong> cleared as a standalone medical device by regulatory bodies unless otherwise stated. Regulatory status may vary by country — contact <a href="mailto:cancervision.helpdesk@gmail.com">cancervision.helpdesk@gmail.com</a> for details.</p>
+</section>
+
+       <!-- FEES & REFUNDS (added) -->
+<section id="fees" class="section">
+  <div class="heading"><div class="round-icon">💳</div><h2>Fees &amp; Refunds</h2></div>
+  <p>If paid services apply, fees, trial periods, and refund rules will be provided at checkout or on the subscription page. Payment processors’ terms also apply. For billing questions, contact <a href="mailto:cancervision.helpdesk@gmail.com">cancervision.helpdesk@gmail.com</a>.</p>
+</section>
+
+
+
+       <!-- 5. Your Data & Privacy -->
+<section id="privacy" class="section" style="padding-top:28px; margin-top:18px;">
+  
+  <div class="heading">
+    <div class="round-icon" aria-hidden="true" style="margin-top:50px;">
+      <!-- lock icon -->
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shield w-6 h-6 text-medical-health">
+        <path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"></path>
+      </svg>
+    </div>
+
+    <h2 style="font-family: ui-sans-serif; font-size: 35px; margin-top: 50px;">
+      Your Data & Privacy
+    </h2>
+  </div>
+
+  <!-- MAIN PRIVACY CONTENT -->
+  <p style="font-family: ui-sans-serif; font-size: 20px; line-height:1.9; margin-top:65px; margin-bottom: 45px;">
+    We take your privacy seriously and are committed to handling your data responsibly:
+  </p>
+
+  <ul>
+
+    <li style="font-family: ui-sans-serif; font-size:20px; line-height:1.9; margin-top: 65px; margin-bottom: 45px;">
+      <strong>Consent:</strong> By using CancerVision, you consent to our processing of uploaded medical images and 
+      associated data for analysis purposes. You can withdraw consent at any time by discontinuing use and requesting data deletion.
+    </li>
+
+    <li style="font-family: ui-sans-serif; font-size:20px; line-height:1.9; margin-top: 45px; margin-bottom: 45px;">
+      <strong>Anonymization:</strong> We strongly recommend removing or obscuring all personally identifiable information 
+      from images before upload. Our system is designed to analyze medical images, not store patient identities.
+    </li>
+
+    <li style="font-family: ui-sans-serif; font-size:20px; line-height:1.9; margin-top: 45px; margin-bottom: 45px;">
+      <strong>Data Usage:</strong> Uploaded images may be used to improve our AI models. We implement anonymization 
+      procedures, but you should ensure compliance with applicable privacy regulations (HIPAA, GDPR, etc.) 
+      before uploading patient data.
+    </li>
+
+    <!-- ⭐ NEW OPTIONAL LINE (third-party secure cloud processing) -->
+    <li style="font-family: ui-sans-serif; font-size:20px; line-height:1.9; margin-top: 45px; margin-bottom: 45px;">
+      <strong>Secure Cloud Processing:</strong> Some data may be stored or processed using secure third-party cloud 
+      providers that support our platform’s functionality.
+    </li>
+
+    <li style="font-family: ui-sans-serif; font-size:20px; line-height:1.9; margin-top: 45px; margin-bottom: 45px;">
+      <strong>Your Rights:</strong> You have the right to access, correct, or delete your data. Contact us at 
+      cancervision.helpdesk@gmail.com for data-related requests.
+    </li>
+
+  </ul>
+
+  <p style="font-family: ui-sans-serif; font-size:22px; line-height:1.9; margin-top: 65px; margin-bottom: 45px;">
+    Healthcare providers using CancerVision must ensure they have proper patient consent and comply with all 
+    applicable healthcare privacy laws in their jurisdiction.
+  </p>
+
+  <!-- Optional Privacy Policy Link -->
+  <p style="font-family: ui-sans-serif; font-size:22px; line-height:1.9; margin-top: 65px; margin-bottom: 45px;">
+    For more details, please refer to our <a href="{{ url_for('privacymain') }}" target="_blank" style="color:hsl(var(--medical-health)); text-decoration:none;">Privacy Policy</a>.
+  </p>
+
+
+</section>
+
+       <!-- 6. Data Retention -->
+<section id="retention" class="section">
+  <div class="heading">
+    <div class="round-icon" aria-hidden="true">🗄️</div>
+    <h2 style="font-family: ui-sans-serif; font-size: 35px; margin-top: 0;">Data Retention &amp; Deletion</h2>
+  </div>
+
+  <p style="font-family: ui-sans-serif; font-size:20px; line-height:1.9; margin-top:18px;">
+    We retain uploaded images, analysis outputs and related metadata for a limited period to provide the service and improve models.
+    <strong>Default retention period:</strong> <strong>90 days</strong> from the date of analysis unless you request earlier deletion.
+    To request deletion, contact <a href="mailto:cancervision.helpdesk@gmail.com">cancervision.helpdesk@gmail.com</a>. Upon verification we will delete your data from primary storage and known backups within 30 days and confirm deletion by email.
+  </p>
+</section>
+
+       <!-- 7. Third-Party Processors -->
+<section id="processors" class="section">
+  <div class="heading">
+    <div class="round-icon" aria-hidden="true">☁️</div>
+    <h2 style="font-family: ui-sans-serif; font-size: 35px; margin-top: 0;">Third-Party Processors &amp; Cross-Border Transfer</h2>
+  </div>
+
+  <p style="font-family: ui-sans-serif; font-size:20px; line-height:1.9; margin-top:18px;">
+    We use vetted third-party cloud and infrastructure providers (e.g., compute, object storage, CDN). Data may be transferred to and processed in jurisdictions outside your country.
+    By using CancerVision you consent to cross-border transfers necessary to provide the service. For an up-to-date list of subprocessors or to raise objections, contact <a href="mailto:cancervision.helpdesk@gmail.com">cancervision.helpdesk@gmail.com</a>.
+  </p>
+
+  <!-- ------- START: Subprocessors list (added) ------- -->
+  <div style="margin-top:18px; padding:14px; border-radius:10px; background:#fff; border:1px solid rgba(12,18,24,0.04); max-width:920px;">
+    <div style="font-weight:700; color:hsl(var(--medical-trust)); margin-bottom:8px;">Known subprocessors (examples)</div>
+    <ul style="color:hsl(var(--muted)); line-height:1.8; margin:0; padding-left:18px;">
+      <li>AWS (compute, object storage)</li>
+      <li>Google Cloud Platform (model training / analytics)</li>
+      <li>Cloud CDN providers for content delivery</li>
+    </ul>
+    <div style="margin-top:8px; font-size:13px; color:hsl(var(--muted));">
+      This list may change; contact <a href="mailto:cancervision.helpdesk@gmail.com">cancervision.helpdesk@gmail.com</a> for the current list or to raise objections to specific subprocessors.
+    </div>
+  </div>
+  <!-- ------- END: Subprocessors list ------- -->
+
+</section>
+
+       <!-- 8. DPO & Audit Logs (moved earlier per requested grouping) -->
+<section id="dpo" class="section">
+  <div class="heading">
+    <div class="round-icon" aria-hidden="true">📧</div>
+    <h2 style="font-family: ui-sans-serif; font-size: 35px; margin-top: 0;">Data Protection Officer &amp; Audit Logs</h2>
+  </div>
+
+  <p style="font-family: ui-sans-serif; font-size:20px; line-height:1.9; margin-top:18px;">
+    For data subject requests and privacy matters contact: <strong>cancervision.helpdesk@gmail.com</strong>. We maintain secure audit logs of access and analysis events to support clinical traceability and forensic needs. Audit log access requests can be submitted to the DPO and will be processed in accordance with applicable law.
+  </p>
+</section>
+
+       <!-- 9. Security -->
+<section id="security" class="section" style="padding-top:28px; margin-top:18px;">
+  <div class="heading" style="align-items:flex-start;">
+    <div class="round-icon" aria-hidden="true" style="margin-top:60px;">
+      <!-- lock icon -->
+      <svg xmlns="http://www.w3.org/2000/svg"
+           width="26" height="26"
+           viewBox="0 0 24 24"
+           fill="none"
+           stroke="hsl(var(--medical-health))"
+           stroke-width="2"
+           stroke-linecap="round"
+           stroke-linejoin="round">
+        <rect x="3" y="11" width="18" height="10" rx="2"></rect>
+        <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+      </svg>
+    </div>
+
+    <h2 style="font-family: ui-sans-serif; font-size: 35px; margin-top: 60px;">
+      Security Commitments
+    </h2>
+  </div>
+
+  <!-- intro -->
+  <p style="font-family: ui-sans-serif; font-size: 20px; line-height:1.9; margin-top:65px; margin-bottom: 45px;">
+    We implement industry-standard security measures to protect your data, including:
+  </p>
+
+  <!-- bullets -->
+  <ul style="font-family: ui-sans-serif; font-size:17px; line-height:1.9; color:hsl(var(--muted)); padding-left:24px; margin-top:14px; max-width:920px;">
+
+    <li style="font-family: ui-sans-serif; font-size:20px; line-height:1.9; margin-top: 45px; margin-bottom: 45px;">
+      Encrypted data transmission (SSL/TLS)
+    </li>
+
+    <li style="font-family: ui-sans-serif; font-size:20px; line-height:1.9; margin-top: 45px; margin-bottom: 45px;">
+      Secure cloud storage with access controls
+    </li>
+
+    <li style="font-family: ui-sans-serif; font-size:20px; line-height:1.9; margin-top: 45px; margin-bottom: 45px;">
+      Regular security audits and updates
+    </li>
+
+    <li style="font-family: ui-sans-serif; font-size:20px; line-height:1.9; margin-top: 45px; margin-bottom: 45px;">
+      Limited employee access on a need-to-know basis
+    </li>
+
+    <!-- ⭐ NEW LOGIN SECURITY RESPONSIBILITY ADDED HERE -->
+    <li style="font-family: ui-sans-serif; font-size:20px; line-height:1.9; margin-top: 45px; margin-bottom: 45px;">
+      Users are responsible for maintaining the confidentiality of their login credentials and ensuring that unauthorized individuals do not access their accounts.
+    </li>
+
+  </ul>
+
+  <!-- highlighted caution box -->
+  <div style="background: #FFFBEB; border-radius:10px; padding:18px; margin-top: 80px; border-left:6px solid #f5b041; max-width:920px; box-shadow: 0 6px 18px rgba(12,18,24,0.03);">
+    <strong style="display:block; margin-bottom:6px; color:#6b3f00; font-size:20px; font-family: ui-sans-serif;">However:</strong>
+    <div style="font-size:20px; line-height:1.9; color:#3b2f20; font-family: ui-sans-serif;">
+      No system is 100% secure. While we work diligently to protect your information, we cannot guarantee absolute security.
+      By using CancerVision, you acknowledge this inherent risk.
+    </div>
+  </div>
+
+  <!-- footer -->
+  <p style="font-family: ui-sans-serif; font-size:20px; line-height:1.9; margin-top: 45px; margin-bottom: 55px;">
+    If you become aware of any security vulnerability, please report it immediately to 
+    <a href="mailto:cancervision.helpdesk@gmail.com">cancervision.helpdesk@gmail.com</a>.
+  </p>
+</section>
+
+       <!-- 10. Breach Notification -->
+<section id="breach" class="section">
+  <div class="heading">
+    <div class="round-icon" aria-hidden="true">🚨</div>
+    <h2 style="font-family: ui-sans-serif; font-size: 35px; margin-top: 0;">Security Incidents &amp; Breach Notification</h2>
+  </div>
+
+  <p style="font-family: ui-sans-serif; font-size:20px; line-height:1.9; margin-top:18px;">
+    If we become aware of a security breach affecting personal data, we will investigate promptly and notify affected individuals and regulators as required by law.
+    Where required by applicable law, we will aim to provide initial notification within <strong>72 hours</strong> of discovery. Report suspected incidents to <a href="mailto:cancervision.helpdesk@gmail.com">cancervision.helpdesk@gmail.com</a>.
+  </p>
+</section>
+
+       <!-- 11. User Responsibilities -->
+  <section id="user-resp" class="section" style="padding-top:18px; margin-top:20px;">
+    <div class="heading">
+      <div class="round-icon" aria-hidden="true">✅</div>
+      <h2 style="font-family: ui-sans-serif; font-size: 35px; margin-top: 0;">User Responsibilities</h2>
+    </div>
+
+    <ul style="font-family: ui-sans-serif; font-size:20px; line-height:1.9; margin-top:12px; padding-left:22px; max-width:920px;">
+      <li>Obtain any required patient consents before uploading clinical data.</li>
+      <li>Remove or anonymize personally identifiable information from images unless explicitly required and permitted.</li>
+      <li>Maintain confidentiality of account credentials and enable any available multi-factor authentication.</li>
+      <li>Do not rely solely on CancerVision for diagnosis or treatment decisions.</li>
+      <li>Report suspected security incidents immediately to <a href="mailto:cancervision.helpdesk@gmail.com">cancervision.helpdesk@gmail.com</a>.</li>
+    </ul>
+  </section>
+
+ 
+
+       <!-- 13. Intellectual Property -->
+ <section id="ip" class="section" style="padding-top:28px; margin-top:18px;">
+  <div class="heading">
+    <div class="round-icon" aria-hidden="true" style="margin-top:100px;">
+      <!-- circular copyright icon -->
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-copyright w-6 h-6 text-medical-health">
+        <circle cx="12" cy="12" r="10"></circle>
+        <path d="M14.83 14.83a4 4 0 1 1 0-5.66"></path>
+      </svg>
+    </div>
+
+    <h2 style="font-family: ui-sans-serif; font-size: 35px; margin-top: 100px;">
+      Intellectual Property Rights
+    </h2>
+  </div>
+
+  <!-- paragraph intro -->
+  <p style="font-family: ui-sans-serif; font-size: 20px; line-height:1.9; margin-top:65px; margin-bottom: 45px;">
+    Let's be clear about what belongs to whom:
+  </p>
+
+  <!-- bullet list -->
+  <ul style="font-family: ui-sans-serif; font-size:20px; line-height:1.9; margin-top:65px; margin-bottom: 45px;">
+
+    <li style="font-family: ui-sans-serif; font-size:20px; line-height:1.9; margin-top: 45px; margin-bottom: 45px;">
+      <strong>Our Property:</strong> CancerVision's software, AI models, algorithms, interface design, and branding are our intellectual property. You may use our service but may not copy, modify, or reverse-engineer our technology.
+    </li>
+
+    <li style="font-family: ui-sans-serif; font-size:20px; line-height:1.9; margin-top: 45px; margin-bottom: 45px;">
+      <strong>Your Property:</strong> You retain all rights to the images you upload. By uploading, you grant us a limited license to process and analyze your images solely for providing our service and improving our AI.
+    </li>
+
+    <li style="font-family: ui-sans-serif; font-size:20px; line-height:1.9; margin-top: 45px; margin-bottom: 45px;">
+      <strong>Analysis Results:</strong> The reports and heatmaps generated are provided to you for your use in healthcare contexts, but the underlying methodology remains our proprietary technology.
+    </li>
+
+    <!-- ⭐ OPTIONAL LEGAL PROTECTION LINE ADDED HERE -->
+    <li style="font-family: ui-sans-serif; font-size:20px; line-height:1.9; margin-top: 45px; margin-bottom: 45px;">
+      <strong>Report Usage:</strong> Generated reports (including PDF files) are for your internal clinical use only; redistribution or public sharing requires explicit permission from CancerVision.
+    </li>
+
+  </ul>
+</section>
+
+       <!-- 14. Indemnity -->
+<section id="indemnity" class="section">
+  <div class="heading">
+    <div class="round-icon" aria-hidden="true">⚖️</div>
+    <h2 style="font-family: ui-sans-serif; font-size: 35px; margin-top: 0;">Indemnification</h2>
+  </div>
+
+  <p style="font-family: ui-sans-serif; font-size:20px; line-height:1.9; margin-top:18px;">
+    You agree to indemnify and hold harmless CancerVision, its affiliates and employees from any claims, losses or damages arising from your misuse of the service, failure to obtain required patient consent, or violation of these terms.
+  </p>
+</section>
+
+       <!-- NEW: 15. Prohibited Uses -->
+<section id="prohibited" class="section">
+  <div class="heading">
+    <div class="round-icon" aria-hidden="true">⛔</div>
+    <h2 style="font-family: ui-sans-serif; font-size: 35px; margin-top: 0;">Prohibited Uses</h2>
+  </div>
+
+  <p style="font-family: ui-sans-serif; font-size:20px; line-height:1.9; margin-top:18px;">
+    You must not:
+  </p>
+
+  <ul style="font-family: ui-sans-serif; font-size:18px; line-height:1.9; padding-left:22px; margin-top:12px; max-width:920px;">
+    <li style="margin-top:10px;">Use CancerVision for non-medical or recreational purposes inconsistent with its intended clinical use.</li>
+    <li style="margin-top:10px;">Upload intentionally corrupted, irrelevant, or non-medical images to manipulate outputs.</li>
+    <li style="margin-top:10px;">Attempt to reverse-engineer, decompile, or extract underlying model weights or proprietary algorithms.</li>
+    <li style="margin-top:10px;">Share patient-identifiable data without lawful basis or appropriate consent.</li>
+    <li style="margin-top:10px;">Bypass, interfere with, or attempt to compromise platform security or rate limits.</li>
+  </ul>
+</section>
+
+       <!-- 16. Limitation of Liability -->
+       <section id="liability" class="section" style="padding-top:32px; margin-top:10px;">
+
+  <div class="heading">
+    <div class="round-icon " aria-hidden="true" style="margin-top:100px;">
+      ⚖️
+    </div>
+    <h2 style="font-family: ui-sans-serif; font-size: 35px; margin-top: 100px;">
+      Limitation of Liability
+    </h2>
+  </div>
+
+  <p style="font-family: ui-sans-serif; font-size:20px; line-height:1.9; margin-top:65px; margin-bottom: 45px;">
+    This is important, though we hope you'll never need to refer back to this section:
+  </p>
+
+  <!-- GRAY BOX -->
+  <div style="
+    background: #EBF0F4;
+    border-radius: 12px;
+    padding: 26px;
+    margin-top: 70px;
+    max-width: 900px;
+    font-family: ui-sans-serif;
+    line-height: 1.75;
+    color: hsl(var(--medical-trust));
+  ">
+
+    <strong style="font-family: ui-sans-serif; font-size: 20px; margin-top: 25px; font-weight: 700; margin-bottom: 25px;">
+      To the fullest extent permitted by law:
+    </strong>
+
+    <ul style="margin-top:14px; padding-left:22px; color:hsl(var(--muted)); font-size:16px;">
+
+      <li style="font-family: ui-sans-serif; font-size:19px; line-height:1.9; margin-top: 65px; margin-bottom: 45px;">
+        CancerVision is provided “as is” without warranties of any kind
+      </li>
+
+      <li style="font-family: ui-sans-serif; font-size:19px; line-height:1.9; margin-top: 65px;">
+        We are not liable for any medical outcomes, diagnoses, or treatment decisions
+      </li>
+
+      <li style="font-family: ui-sans-serif; font-size:19px; line-height:1.9; margin-top: 65px;">
+        We are not liable for indirect, incidental, or consequential damages
+      </li>
+
+      <!-- ✅ OPTIONAL LINE ADDED HERE -->
+      <li style="font-family: ui-sans-serif; font-size:19px; line-height:1.9; margin-top: 65px;">
+        We are not liable for any loss of profits, revenue, data, or business opportunities
+      </li>
+
+      <li style="font-family: ui-sans-serif; font-size:19px; line-height:1.9; margin-top: 65px;">
+        Our total liability is limited to the amount you paid for our service (if any) in the past 12 months
+      </li>
+
+    </ul>
+
+  </div>
+
+  <p style="font-family: ui-sans-serif; font-size:20px; line-height:1.9; margin-top: 65px; margin-bottom: 45px;">
+    <strong>Why these limitations?</strong>  
+    CancerVision is a supportive tool, not a medical practitioner. Medical decisions should always be made by qualified professionals considering the full clinical picture. These terms protect us so we can continue providing this valuable service to healthcare providers.
+  </p>
+
+  <p style="font-family: ui-sans-serif; margin-top:18px; font-size:17px; color:hsl(var(--muted)); max-width:900px;">
+    Some jurisdictions don't allow certain liability limitations, so portions of the above may not apply to you.
+    In such cases, our liability will be limited to the maximum extent permitted by law.
+  </p>
+
+</section>
+
+       <!-- 16. Children & Minors -->
+<section id="children" class="section">
+  <div class="heading">
+    <div class="round-icon" aria-hidden="true">🧒</div>
+    <h2 style="font-family: ui-sans-serif; font-size: 35px; margin-top: 0;">Children &amp; Minors</h2>
+  </div>
+
+  <p style="font-family: ui-sans-serif; font-size:20px; line-height:1.9; margin-top:18px;">
+    Do not upload medical data of minors unless you are authorized and have obtained appropriate parental/guardian consent. Special legal protections may apply.
+  </p>
+</section>
+
+       <!-- ACCESSIBILITY (added) -->
+<section id="accessibility" class="section">
+  <div class="heading"><div class="round-icon">♿</div><h2>Accessibility</h2></div>
+  <p>We aim to make CancerVision accessible. If you need assistance using the site due to a disability, contact <a href="mailto:cancervision.helpdesk@gmail.com">cancervision.helpdesk@gmail.com</a>.</p>
+</section>
+
+
+       <!-- 17. Governing Law & Jurisdiction -->
+<section id="governing-law" class="section">
+  <div class="heading">
+    <div class="round-icon" aria-hidden="true">📍</div>
+    <h2 style="font-family: ui-sans-serif; font-size: 35px; margin-top: 0;">Governing Law &amp; Dispute Resolution</h2>
+  </div>
+
+  <p style="font-family: ui-sans-serif; font-size:20px; line-height:1.9; margin-top:18px;">
+    These Terms are governed by the laws of <strong>India</strong>. Any dispute arising from these Terms shall be subject to the exclusive jurisdiction of the courts in <strong>New Delhi, India</strong>.
+  </p>
+</section>
+
+
+ <!-- 12. Contact & Consent (kept in place) -->
+<section id="contact" class="section">
+  <div class="heading" style="align-items:flex-start;">
+    <div class="round-icon" style="margin-top:100px;">✉️</div>
+    <h2 style="font-family: ui-sans-serif; font-size: 35px; margin-top: 100px;">Contact &amp; Disputes</h2>
+  </div>
+
+  <p style="font-family: ui-sans-serif; font-size:20px; line-height:1.9; margin-top:65px; margin-bottom: 45px;">
+    We've tried to make these terms as fair and transparent as possible, but we understand they might not work for everyone.
+  </p>
+
+  <!-- Pale blue rounded info box with left accent (matches reference) -->
+  <div style="
+        background: #F3F8F9;
+        border-radius: 12px;
+        padding: 22px 26px;
+        margin-top: 20px;
+        border-left: 6px solid hsl(var(--medical-health));
+        max-width: 920px;
+        box-shadow: 0 1px 0 rgba(12,18,24,0.02) inset;
+  ">
+    <div style="font-family: ui-sans-serif; font-size: 20px; margin-top: 6px; font-weight: 700; margin-bottom: 12px;">
+      If you disagree with any part of these terms:
+    </div>
+
+    <ol style="margin:0; padding-left:20px; color: hsl(var(--medical-trust)); line-height:1.7; font-size:15px;">
+      <li style="font-family: ui-sans-serif; font-size:19px; line-height:1.9; margin-top: 18px; margin-bottom: 5px;">
+        <strong>Contact Us:</strong> Reach out to <a href="mailto:cancervision.helpdesk@gmail.com">cancervision.helpdesk@gmail.com</a> to discuss your concerns. We're open to feedback and may be able to address specific issues.
+      </li>
+      <li style="font-family: ui-sans-serif; font-size:19px; line-height:1.9; margin-top: 12px; margin-bottom: 5px;">
+        <strong>Discontinue Use:</strong> If we can't resolve your concerns, please stop using CancerVision immediately. Continuing to use our service means you accept these terms.
+      </li>
+      <li style="font-family: ui-sans-serif; font-size:19px; line-height:1.9; margin-top: 12px; margin-bottom: 5px;">
+        <strong>Request Data Deletion:</strong> If you've already uploaded data and wish to discontinue use, contact us at <a href="mailto:privacy@cancervision.com">privacy@cancervision.com</a> to request deletion of your information.
+      </li>
+      <li style="font-family: ui-sans-serif; font-size:19px; line-height:1.9; margin-top: 12px; margin-bottom: 5px;">
+        <strong>Seek Legal Advice:</strong> For significant concerns, we encourage you to consult with your own legal counsel.
+      </li>
+    </ol>
+  </div>
+
+  <!-- Consent box remains in contact for visibility (you previously had it here) -->
+  <div class="consent-box" style="max-width:920px; margin-top:18px;">
+    <h3>✓ Your Explicit Consent</h3>
+
+    <p style="margin-bottom: 16px; color: #475569;">Before proceeding with CancerVision, please confirm your understanding and acceptance:</p>
+
+    <div class="consent-item">
+      <input type="checkbox" id="consent1" onchange="checkConsent()">
+      <label for="consent1">I understand CancerVision is <strong>not a medical device</strong> and does <strong>not replace professional diagnosis</strong>. All results must be reviewed by healthcare professionals.</label>
+    </div>
+
+    <div class="consent-item">
+      <input type="checkbox" id="consent2" onchange="checkConsent()">
+      <label for="consent2">I have obtained <strong>explicit patient consent</strong> (where applicable) and removed all <strong>personally identifiable information</strong> from uploaded images.</label>
+    </div>
+
+    <div class="consent-item">
+      <input type="checkbox" id="consent3" onchange="checkConsent()">
+      <label for="consent3">I acknowledge my organization is <strong>compliant with data protection laws</strong> (HIPAA, GDPR, POPIA, etc.) and I take full responsibility for data privacy.</label>
+    </div>
+
+    <div class="consent-item">
+      <input type="checkbox" id="consent4" onchange="checkConsent()">
+      <label for="consent4">I accept that my medical data will be <strong>processed, temporarily stored, and deleted</strong> according to the Data Processing &amp; Storage section above.</label>
+    </div>
+
+    <div class="consent-item">
+      <input type="checkbox" id="consent5" onchange="checkConsent()">
+      <label for="consent5">I have read and agree to all Terms &amp; Conditions, including limitations of liability and the governing law of <strong>India</strong>.</label>
+    </div>
+
+    <!-- NEW: Opt-out for model improvement (added) -->
+    <div class="consent-item" style="margin-top:8px;">
+      <input type="checkbox" id="consent_optout" onchange="checkConsent()" />
+      <label for="consent_optout">I <strong>do not</strong> consent to my (anonymized) data being used to improve models (opt-out).</label>
+    </div>
+
+    <div class="button-group">
+     <button type="button" class="btn-accept" id="acceptBtn" onclick="acceptTerms()" disabled>
+  Accept & Continue
+</button>
+      <button class="btn-decline" onclick="declineTerms()">Decline</button>
+    </div>
+
+    <div class="status-message" id="statusMsg" aria-live="polite"></div>
+
+    <!-- Printable metadata for PDF (populates via JS) -->
+    <div class="print-meta" id="printMeta">
+      Report ID: <span id="print_report_id">N/A</span> · Model: <span id="print_model_version">N/A</span> · Run: <span id="print_run_ts">N/A</span>
+      <div style="margin-top:6px;">Anonymization: <span id="print_anonymized">unknown</span> · For clinical review only — not a diagnosis.</div>
+    </div>
+
+  </div>
+
+  <!-- Changes to Terms -->
+  <p style="font-family: ui-sans-serif; font-size:20px; line-height:1.9; margin-top: 28px; margin-bottom: 45px;">
+    <strong>Changes to Terms:</strong> We may update these terms occasionally to reflect service improvements or legal requirements. We'll notify you of significant changes via email or prominent notice on our platform. Continued use after changes constitutes acceptance.
+  </p>
+
+  <!-- thin divider -->
+  <hr style="border:0; height:1px; background:rgba(12,18,24,0.06); margin:18px 0; max-width:920px;">
+
+  <!-- Questions or Concerns region -->
+  <div style="max-width:920px;">
+    <div style="font-weight:700; color:hsl(var(--medical-trust)); margin-bottom:18px; margin-top :60px;  font-size:25px;">
+      Questions or Concerns?
+    </div>
+    <div style="color:hsl(var(--muted)); margin-bottom:12px; font-size:20px; margin-top: 25px;;">
+      We're here to help. Contact us at:
+    </div>
+
+    <ul style="list-style: none; padding-left:0; color:hsl(var(--muted)); line-height:1.8; font-size:18px; margin:20 0 20px 0; margin-top: 20px;">
+  <li>
+    <span style="color:#000; font-weight:800;">•For general inquiries,legal, or security matters:</span>
+    <a href="mailto:cancervision.helpdesk@gmail.com" style="font-weight:400; color:#007BFF;" > cancervision.helpdesk@gmail.com </a>
+  </li>
+ 
+</ul>
+
+
+
+
+
+
+    <p style="font-size:17px; color: hsl(var(--muted));">
+      Thank you for taking the time to read these terms. We're committed to supporting better healthcare through responsible AI, and your trust means everything to us.
+    </p>
+  </div>
+
+</section>
+
+      </div>
+    </div>
+
+    <!-- RIGHT SIDE TOC -->
+    <aside class="toc" aria-label="Table of contents">
+      <h4 style="font-family: ui-sans-serif; font-size:25px; line-height:1.9; margin-top: 15px; margin-bottom: 25px; margin-left: 13px;">Contents</h4>
+
+      <!-- Updated order exactly as requested (Definitions + Prohibited Uses added) -->
+      <a href="#service" style="font-size: 19px; font-family: ui-sans-serif;" >Our Service</a>
+      <a href="#intended-use" style="font-size: 19px; font-family: ui-sans-serif;" >Intended Use</a>
+      <a href="#definitions" style="font-size: 19px; font-family: ui-sans-serif;" >Definitions</a>
+      <a href="#model-updates" style="font-size: 19px; font-family: ui-sans-serif;" >Model Versions</a>
+      <a href="#disclaimer" style="font-size: 19px; font-family: ui-sans-serif;" >Medical Disclaimer</a>
+      <a href="#guidance" style="font-size: 19px; font-family: ui-sans-serif;" >Understanding Results</a>
+      <a href="#reports" style="font-size: 19px; font-family: ui-sans-serif;" >Reports &amp; downloads</a>
+      <a href="#permitted" style="font-size: 19px; font-family: ui-sans-serif;" >Permitted Uses</a>
+      <a href="#regulatory" style="font-size: 19px; font-family: ui-sans-serif;" >Regulatory Status</a>
+      <a href="#fees" style="font-size: 19px; font-family: ui-sans-serif;" >Fees &amp; refunds</a>
+      <a href="#privacy" style="font-size: 19px; font-family: ui-sans-serif;" >Your Data &amp; Privacy</a>
+      <a href="#retention" style="font-size: 19px; font-family: ui-sans-serif;" >Data Retention</a>
+      <a href="#processors" style="font-size: 19px; font-family: ui-sans-serif;" >Third-Party Processors</a>
+      <a href="#dpo" style="font-size: 19px; font-family: ui-sans-serif;" >DPO &amp; Audit Logs</a>
+      <a href="#security" style="font-size: 19px; font-family: ui-sans-serif;" >Security</a>
+      <a href="#breach" style="font-size: 19px; font-family: ui-sans-serif;" >Breach Notification</a>
+      <a href="#user-resp" style="font-size: 19px; font-family: ui-sans-serif;" >User Responsibility</a>
+      <a href="#ip" style="font-size: 19px; font-family: ui-sans-serif;" >Intellectual Property</a>
+      <a href="#indemnity" style="font-size: 19px; font-family: ui-sans-serif;" >Indemnity</a>
+      <a href="#prohibited" style="font-size: 19px; font-family: ui-sans-serif;" >Prohibited Uses</a>
+      <a href="#liability" style="font-size: 19px; font-family: ui-sans-serif;" >Limitation of Liability</a>
+      <a href="#children" style="font-size: 19px; font-family: ui-sans-serif;" >Children &amp; Minors</a>
+      <a href="#accessibility" style="font-size: 19px; font-family: ui-sans-serif;" >Accessibility</a>
+      <a href="#governing-law" style="font-size: 19px; font-family: ui-sans-serif;" >Governing Law &amp; Jurisdiction</a>
+        <a href="#contact" style="font-size: 19px; font-family: ui-sans-serif;" >Consent &amp; Contact</a>
+    </aside>
+
+  </div>
+
+<!-- REPLACE your appended TOC-enhancer with this script -->
+<script>
+(function(){
+  if (window.__TOC_ENHANCED) return;
+  window.__TOC_ENHANCED = true;
+
+  const tocLinks = Array.from(document.querySelectorAll('.toc a'));
+  const sections = Array.from(document.querySelectorAll('.content-inner .section[id]'));
+  const header = document.querySelector('.hero-dark');
+  const contentScrollEl = document.getElementById('contentScroll');
+
+  const scrollContainer = (function(){
+    if (!contentScrollEl) return null;
+    const cs = getComputedStyle(contentScrollEl);
+    const y = cs.overflowY;
+    const isScrollable = contentScrollEl.scrollHeight > contentScrollEl.clientHeight &&
+                         (y === 'auto' || y === 'scroll' || y === 'overlay');
+    return isScrollable ? contentScrollEl : null;
+  })();
+
+  function updateHeaderHeight(){
+    const h = header ? Math.round(header.getBoundingClientRect().height) : 0;
+    document.documentElement.style.setProperty('--header-height', h + 'px');
+    return h;
+  }
+
+  const existingSetActive = (typeof window.setActiveLinkById === 'function') ? window.setActiveLinkById : null;
+function localSetActive(id){
+  tocLinks.forEach(a => {
+    const isActive = a.getAttribute('href') === '#' + id;
+    a.classList.toggle('active', isActive);
+
+    if (isActive) {
+      a.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest"
+      });
+    }
+  });
+}
+
+
+  // scrollLock + debounce
+  let scrollLock = false;
+  let unlockTimer = null;
+  const SCROLL_DEBOUNCE = 120;
+  const SCROLL_SAFETY = 1500;
+
+  function clearPendingStyles() { tocLinks.forEach(a => a.classList.remove('pending')); }
+  function engageScrollLock(){
+    scrollLock = true;
+    if (unlockTimer) { clearTimeout(unlockTimer); unlockTimer = null; }
+    setTimeout(() => { scrollLock = false; }, SCROLL_SAFETY);
+  }
+  function scheduleUnlockAndSetActive(id){
+    if (unlockTimer) clearTimeout(unlockTimer);
+    unlockTimer = setTimeout(() => {
+      scrollLock = false;
+      clearPendingStyles();
+      localSetActive(id);
+      try { if (id) history.replaceState(null, '', '#' + id); } catch(e){}
+    }, SCROLL_DEBOUNCE);
+  }
+
+  // robust scroll top calculation
+  function computeTopFor(targetEl){
+    const GAP = 12;
+    updateHeaderHeight();
+    const rect = targetEl.getBoundingClientRect();
+    if (scrollContainer) {
+      const containerRect = scrollContainer.getBoundingClientRect();
+      return Math.max(0, scrollContainer.scrollTop + (rect.top - containerRect.top) - updateHeaderHeight() - GAP);
+    } else {
+      return Math.max(0, window.pageYOffset + rect.top - updateHeaderHeight() - GAP);
+    }
+  }
+
+  // Attach handlers (idempotent)
+  tocLinks.forEach(link => {
+    if (link.dataset.tocHasClick) return;
+    link.addEventListener('click', function(e){
+      const href = this.getAttribute('href') || '';
+      if (!href.startsWith('#')) return;
+      e.preventDefault(); // we will control scroll/fallback
+      const id = href.slice(1);
+      const target = document.getElementById(id);
+      if (!target) {
+        // nothing to scroll to — let browser fallback to hash
+        try { location.hash = '#' + id; } catch(e){ console.warn('hash fallback failed', e); }
+        return;
+      }
+
+      engageScrollLock();
+      clearPendingStyles();
+      this.classList.add('pending');
+
+      // Attempt smooth scroll
+      try {
+        const top = computeTopFor(target);
+        if (scrollContainer) {
+          scrollContainer.scrollTo({ top, behavior: 'smooth' });
+        } else {
+          window.scrollTo({ top, behavior: 'smooth' });
+        }
+      } catch (err) {
+        console.warn('Smooth scroll attempt failed, will fallback to hash jump', err);
+        try { location.hash = '#' + id; } catch(e){ console.warn('hash fallback also failed', e); }
+        scheduleUnlockAndSetActive(id);
+        this.dataset.tocHasClick = '1';
+        return;
+      }
+
+      // Verification fallback: after short delay, check if element is near expected position.
+      // If not, perform immediate hash jump (ensures navigation works on all browsers/devices).
+      const VERIFY_DELAY = 250; // ms
+      setTimeout(() => {
+        try {
+          const rectNow = target.getBoundingClientRect();
+          const headerBottom = header ? header.getBoundingClientRect().bottom : 0;
+          // if distance from header bottom is > 40px, we assume scroll didn't reach target reliably
+          if (Math.abs(rectNow.top - headerBottom) > 80) {
+            // fallback immediate jump
+            try { location.hash = '#' + id; } catch(e){ console.warn('fallback hash failed', e); }
+          }
+        } catch (e) { console.warn('verify check failed', e); }
+        // always ensure we schedule unlock & final active (last call wins)
+        scheduleUnlockAndSetActive(id);
+      }, VERIFY_DELAY);
+
+      this.dataset.tocHasClick = '1';
+    }, { passive: false });
+  });
+
+  // IntersectionObserver / fallback (respect scrollLock)
+  if ('IntersectionObserver' in window && sections.length) {
+    let headerH = updateHeaderHeight();
+    const root = scrollContainer || null;
+    function buildThresholdList(){ const out=[]; for (let i=0;i<=100;i+=5) out.push(i/100); return out; }
+
+    const obs = new IntersectionObserver((entries) => {
+      if (scrollLock) return;
+      const visible = entries.filter(e => e.isIntersecting);
+      if (visible.length) {
+        visible.sort((a,b) => b.intersectionRatio - a.intersectionRatio);
+        const id = visible[0].target.id;
+        localSetActive(id);
+        try { if (id) history.replaceState(null, '', '#' + id); } catch(e){}
+        return;
+      }
+      let best=null, bestDelta=Infinity;
+      const headerBottom = header ? header.getBoundingClientRect().bottom : 0;
+      for (const s of sections) {
+        const d = Math.abs(s.getBoundingClientRect().top - headerBottom);
+        if (d < bestDelta) { bestDelta = d; best = s; }
+      }
+      if (best) localSetActive(best.id);
+    }, {
+      root,
+      rootMargin: `-${headerH + 12}px 0px -40% 0px`,
+      threshold: buildThresholdList()
+    });
+
+    sections.forEach(s => obs.observe(s));
+
+    let resizeTimer = null;
+    window.addEventListener('resize', () => {
+      headerH = updateHeaderHeight();
+      if (resizeTimer) clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        try { obs.disconnect(); } catch(e){}
+        sections.forEach(s => obs.observe(s));
+      }, 120);
+    });
+  } else {
+    const rootEl = scrollContainer || window;
+    let ticking = false;
+    rootEl.addEventListener('scroll', () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(() => {
+        if (!scrollLock) {
+          const GAP = 12, NEAR = 140;
+          const line = (header ? header.getBoundingClientRect().bottom : 80) + GAP;
+          let best = { id: null, score: Infinity };
+          for (const s of sections) {
+            const r = s.getBoundingClientRect();
+            const top = r.top;
+            let score;
+            if (top <= line) score = (line - top);
+            else if ((top - line) <= NEAR) score = (top - line) + 10;
+            else score = (top - line) * 3;
+            if (score < best.score) best = { id: s.id, score };
+          }
+          if (best.id) localSetActive(best.id);
+        }
+        ticking = false;
+      });
+    }, { passive: true });
+  }
+
+  // on load: handle hash
+  window.addEventListener('load', () => {
+    updateHeaderHeight();
+    setTimeout(() => {
+      if (location.hash) {
+        const id = location.hash.slice(1);
+        const el = document.getElementById(id);
+        if (el) {
+          // try auto scroll with offset
+          try {
+            const top = computeTopFor(el);
+            if (scrollContainer) scrollContainer.scrollTo({ top, behavior: 'auto' });
+            else window.scrollTo({ top, behavior: 'auto' });
+          } catch(e) {
+            try { location.hash = '#' + id; } catch(_) {}
+          }
+          localSetActive(id);
+          return;
+        }
+      }
+      if (!document.querySelector('.toc a.active')) if (sections.length) localSetActive(sections[0].id);
+    }, 80);
+  }, { passive: true });
+
+  // ensure minimal pending style
+  (function ensurePendingStyle(){
+    if (document.getElementById('toc-pending-style')) return;
+    const style = document.createElement('style');
+    style.id = 'toc-pending-style';
+    style.textContent = ".toc a.pending{ opacity:0.95; }";
+    document.head.appendChild(style);
+  })();
+
+})();
+</script>
+
+
+
+<script>
+/* Consent logic — place once per page */
+function checkConsent() {
+    const c1 = document.getElementById('consent1')?.checked;
+    const c2 = document.getElementById('consent2')?.checked;
+    const c3 = document.getElementById('consent3')?.checked;
+    const c4 = document.getElementById('consent4')?.checked;
+    const c5 = document.getElementById('consent5')?.checked;
+    // opt-out does not block acceptance; it's a separate flag
+    const acceptBtn = document.getElementById('acceptBtn');
+    if (acceptBtn) acceptBtn.disabled = !(c1 && c2 && c3 && c4 && c5);
+}
+
+function acceptTerms() {
+    const statusMsg = document.getElementById('statusMsg');
+    if (!statusMsg) return;
+
+    statusMsg.textContent = '✓ Terms accepted! Redirecting to Consent page...';
+    statusMsg.classList.remove('error');
+    statusMsg.classList.add('success');
+
+    try {
+      localStorage.setItem('cancervision_consent', JSON.stringify({
+        accepted: true,
+        timestamp: new Date().toISOString()
+      }));
+    } catch (e) {
+      console.warn('Could not save consent locally', e);
+    }
+
+    const payload = {
+      accepted: true,
+      timestamp: new Date().toISOString(),
+      statements: {
+        c1: !!document.getElementById('consent1')?.checked,
+        c2: !!document.getElementById('consent2')?.checked,
+        c3: !!document.getElementById('consent3')?.checked,
+        c4: !!document.getElementById('consent4')?.checked,
+        c5: !!document.getElementById('consent5')?.checked
+      },
+      opt_out_model_improvement: !!document.getElementById('consent_optout')?.checked,
+      user_agent: navigator.userAgent || null,
+      model_version_at_accept: (function(){
+         const el = document.querySelector('#model-updates em');
+         return el ? el.textContent : 'unknown';
+      })()
+    };
+
+   (function sendConsentThenRedirect(){
+  try {
+    fetch('/accept-terms', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+      credentials: 'include'
+    }).then(resp => {
+
+      // ❌ resp.json() hata diya (ye crash kar raha tha)
+
+      if (resp.ok) {
+        setTimeout(()=>{ window.location.href = '/consent'; }, 500);
+      } else {
+        console.warn('Consent POST failed', resp.status);
+        setTimeout(()=>{ window.location.href = '/consent'; }, 500);
+      }
+
+    }).catch(err=>{
+      console.warn('Consent POST failed', err);
+      setTimeout(()=>{ window.location.href = '/consent'; }, 500);
+    });
+
+  } catch (e) {
+    console.warn('Error sending consent', e);
+    setTimeout(()=>{ window.location.href = '/consent'; }, 500);
+  }
+})();
+}
+
+function declineTerms() {
+    const statusMsg = document.getElementById('statusMsg');
+    if (!statusMsg) return;
+    statusMsg.textContent = '✗ You must accept the terms to use CancerVision.';
+    statusMsg.classList.remove('success');
+    statusMsg.classList.add('error');
+
+    // reset checkboxes
+    ['consent1','consent2','consent3','consent4','consent5','consent_optout'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.checked = false;
+    });
+    checkConsent();
+}
+
+// preserve previously given consent
+window.addEventListener('DOMContentLoaded', () => {
+    try {
+      const stored = localStorage.getItem('cancervision_consent');
+      if (stored) {
+        const data = JSON.parse(stored);
+        if (data && data.accepted) {
+          // show subtle message in console; you might show a UI state instead
+          console.log('User previously accepted terms at', data.timestamp);
+          // pre-populate printable metadata (best-effort)
+          document.getElementById('print_run_ts').textContent = data.timestamp || 'N/A';
+        }
+      }
+    } catch (e) { /* ignore JSON errors */ }
+})();
+
+
+</script>
+
+
+
+</body>
+</html> 
