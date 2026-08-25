@@ -1,0 +1,206 @@
+/* === Align image border with bottom meta box right edge === */
+.preview-frame {
+  width: 100%;
+  max-width: 760px !important;   /* same as file-meta width */
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+.preview-frame img#thumb2 {
+  width: 100% !important;        /* full width inside container */
+  max-width: 760px !important;   /* match meta box width */
+  border: 8px solid #e1e8ee !important;  /* thicker frame */
+  border-radius: 10px !important;
+  padding: 6px !important;       /* inner gap */
+  background: #fff !important;
+  box-shadow: 0 8px 22px rgba(4,12,24,0.06) !important;
+  transform: translateX(0) !important;   /* no left shift */
+  transition: all .28s ease;
+}
+
+
+
+
+/* FORCE spacing override - very high specificity and !important */
+body .detection-section .upload-block.has-preview #fileArea > .preview-frame {
+  margin-bottom: 90px !important;   /* gap between preview-frame and following content (increase to push file-meta/buttons down) */
+  padding-bottom: 0 !important;
+}
+
+body .detection-section .upload-block.has-preview #fileArea > .preview-frame img#thumb2 {
+  margin-bottom: 24px !important;   /* gap between image and the preview-frame bottom */
+  transform: none !important;
+}
+
+/* Ensure the heading above preview (Upload Image / Preview Uploaded Image) has less margin-top so it stays close or more if you want */
+body .detection-form .form-block > h3 {
+  margin-bottom: 28px !important;   /* heading ↔ image (reduce/increase) */
+  margin-top: 24px !important;
+}
+
+/* file-meta (card) ↔ buttons gap */
+body .detection-section .upload-block.has-preview .file-meta {
+  margin-bottom: 54px !important;   /* pushes clear/analyze further down */
+}
+
+/* button-row: center and increase internal gap */
+body .detection-section .upload-block.has-preview .button-row {
+  display:flex !important;
+  justify-content:center !important;
+  gap:24px !important;               /* horizontal gap between Clear & Analyze */
+  margin-top: 30px !important;       /* vertical gap above buttons */
+}
+
+/* extra fallback — in case some other absolute positioning was used */
+body .detection-section .upload-block.has-preview {
+  padding-bottom: 0 !important;
+}
+
+ 
+/* 4) Ensure the file-meta card itself has a bottom margin to separate from buttons */
+body .detection-section .upload-block.has-preview .file-meta {
+  margin-bottom: 75px !important;   /* gap between file-meta and buttons (increase if needed) */
+}
+
+
+/* heading (h3) ke neeche se image tak ka gap */
+body .detection-form .form-block > h3 {
+  margin-bottom: 208px !important;  /* chhota rakho agar close chahiye */
+  margin-top: 24px !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ====== OVERRIDES: center the separate #upload section and its buttons ======
+   Paste this at the END of your style.css (no other edits needed).
+   These selectors use #upload so they won't affect other detection-section blocks.
+*/
+
+#upload.detection-section {
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
+
+/* center the inner container and remove the giant transform/shift */
+#upload .detection-inner {
+  display: block !important;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+/* keep same look but constrain width and remove the left/translate hacks */
+#upload .upload-block {
+  width: 100% !important;
+  max-width: 1100px !important;
+  margin: 0 auto !important;
+  box-sizing: border-box !important;
+  position: relative !important;
+  left: auto !important;
+  transform: none !important;
+  padding: 40px 28px !important;
+  min-width: auto !important;
+  background: #fff !important;
+  border-radius: 12px !important;
+  border: 2px dashed #cfd7e0 !important;
+  display: block !important;
+  align-items: stretch !important;
+  justify-content: center !important;
+}
+
+/* ensure upload-box is centered and not stretched off-screen */
+#upload .upload-box {
+  width: 100% !important;
+  max-width: 100% !important;
+  min-height: 180px !important;
+  padding: 36px 24px !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  left: auto !important;
+  transform: none !important;
+  background: transparent !important;
+  border-radius: 12px !important;
+}
+
+/* center the texts inside the dropzone */
+#upload .upload-box p,
+#upload .upload-box small {
+  text-align: center !important;
+  margin: 0 auto !important;
+  color: #0B2033 !important; /* keep the same text color used in detection-section */
+}
+
+/* put Analyze button under the upload box and center it */
+#upload .upload-block .button-row {
+  position: static !important;
+  top: auto !important;
+  left: auto !important;
+  transform: none !important;
+  margin-top: 34px !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: auto !important;
+  gap: 16px !important;
+}
+
+/* small tweak to Analyze button sizing for the centered layout */
+#upload .button-row .analyze,
+#upload #analyze2 {
+  padding: 12px 28px !important;
+  display: inline-flex !important;
+  margin: 0 !important;
+}
+
+/* preview image: remove horizontal translate and keep margins similar to your target */
+#upload .preview-frame img#thumb2 {
+  transform: none !important;
+  margin: 0 auto 40px !important;
+  width: 85% !important;
+  max-width: 520px !important;
+  object-fit: contain !important;
+}
+
+/* fileArea preview card should be centered and limited */
+#upload .upload-block.has-preview #fileArea,
+#upload .file-meta {
+  max-width: 760px !important;
+  margin: 0 auto !important;
+}
+
+/* responsive: small screens keep full width but centered */
+@media (max-width: 900px) {
+  #upload .upload-box { padding: 20px 12px !important; min-height: 140px !important; }
+  #upload .preview-frame img#thumb2 { width: 95vw !important; max-width: 100% !important; transform: none !important; padding: 12px !important; }
+  #upload .upload-block { padding: 18px !important; }
+}
+
+
+
+
